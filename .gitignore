@@ -1,0 +1,19 @@
+# dependencies
+node_modules/
+
+# environment variables
+.env
+.env.*
+
+# macOS
+.DS_Store
+
+# editors
+.idea/
+.vscode/
+
+# deploy
+.vercel/
+
+# scratch
+tmp/
