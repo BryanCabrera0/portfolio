@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="color-scheme" content="light" />
     <title>Bryan Cabrera — iOS &amp; macOS Engineer</title>
-    <meta name="description" content="Bryan Cabrera is an iOS and macOS engineer in Miami. Creator of DRFT (live on the App Store), Shelf, SageAI, and Bounty. Swift, SwiftUI, and on-device AI." />
+    <meta name="description" content="Bryan Cabrera is an iOS and macOS engineer in Miami. Creator of DRFT (live on the App Store), currently building Shelf and Bounty. Swift, SwiftUI, and on-device AI." />
     <meta name="author" content="Bryan Cabrera" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#fdfdfd" />
@@ -53,6 +53,7 @@
         <nav class="headerNav" aria-label="Primary">
           <a href="#work">Work</a>
           <a href="#experience">Experience</a>
+          <a href="#about">About</a>
           <a href="#contact" class="navPill">Contact</a>
         </nav>
       </header>
@@ -77,38 +78,14 @@
           </p>
         </div>
 
-        <div class="heroSheet reveal" style="animation-delay: 0.36s" aria-hidden="true">
-          <div class="sticker stickerDrft">
-            <img src="/assets/drft-icon.png" alt="" width="512" height="512" />
-            <span class="stickerLabel">DRFT</span>
-          </div>
-          <div class="sticker stickerShelf">
-            <span class="stickerGlyph">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 30c-2-8 1-16 10-16s12 8 10 16c-1.5 6-6 8-10 8s-8.5-2-10-8Z" />
-                <path d="M24 14V8M24 8c0-2 2-3 4-2" />
-              </svg>
-            </span>
-            <span class="stickerLabel">Shelf</span>
-          </div>
-          <div class="sticker stickerSage">
-            <span class="stickerGlyph">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="14" cy="14" r="5" /><circle cx="36" cy="20" r="5" /><circle cx="22" cy="36" r="5" />
-                <path d="M18 17l13 2M17 18l3 13M33 24l-8 9" />
-              </svg>
-            </span>
-            <span class="stickerLabel">SageAI</span>
-          </div>
-          <div class="sticker stickerBounty">
-            <span class="stickerGlyph">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="24" cy="24" r="14" />
-                <path d="M24 17v14M28 19.5c-1-1.5-7-2-7 1.5s7 1.5 7 5-6 3-7.5 1" />
-              </svg>
-            </span>
-            <span class="stickerLabel">Bounty</span>
-          </div>
+        <div class="heroPhoto reveal" style="animation-delay: 0.36s">
+          <img
+            src="/assets/portrait.jpg"
+            alt="Bryan Cabrera smiling on a hillside overlooking Kyoto"
+            width="960"
+            height="1280"
+            fetchpriority="high"
+          />
         </div>
       </section>
 
@@ -121,8 +98,8 @@
             <p>
               An iOS + macOS app that listens for your name and custom wake words during meetings,
               calls, and lectures — fully on-device, nothing recorded, nothing uploaded. Real-time
-              detection pipeline with dual audio stacks: AVAudioEngine on iPhone, Core Audio process
-              taps on Mac.
+              detection with dual audio stacks: AVAudioEngine on iPhone, Core Audio process taps on
+              Mac.
             </p>
             <ul class="chips" aria-label="Technologies">
               <li>SwiftUI</li><li>SwiftData</li><li>CloudKit</li><li>StoreKit 2</li>
@@ -133,14 +110,29 @@
               <a class="btnGhost btnSmallGhost" href="https://drft.ing" target="_blank" rel="noreferrer">drft.ing</a>
             </div>
           </div>
-          <div class="featureArt artDrft" aria-hidden="true">
-            <img src="/assets/drft-icon.png" alt="" width="512" height="512" />
+          <div class="phoneRow">
+            <img
+              class="phone phoneBack"
+              src="/assets/drft-home.png"
+              alt="DRFT home screen: 'Pay attention? In this economy?' with wake words Jim, Pam, and Beets"
+              width="506"
+              height="1100"
+              loading="lazy"
+            />
+            <img
+              class="phone phoneFront"
+              src="/assets/drft-detail.png"
+              alt="DRFT detection detail: 'Michael' with an AI summary of the moment"
+              width="507"
+              height="1100"
+              loading="lazy"
+            />
           </div>
         </div>
 
         <div class="feature reverse scrollReveal">
           <div class="featureText">
-            <span class="featureNum">02 · In development</span>
+            <span class="featureNum">02 · Currently building</span>
             <h2>Shelf turns your food into stickers that wilt.</h2>
             <p>
               Snap leftovers and Shelf die-cuts them into living stickers that desaturate and droop
@@ -153,7 +145,7 @@
               <li>App Attest</li><li>Cloudflare Workers</li>
             </ul>
           </div>
-          <div class="featureArt artShelf" aria-hidden="true">
+          <div class="featureArt" aria-hidden="true">
             <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 30c-2-8 1-16 10-16s12 8 10 16c-1.5 6-6 8-10 8s-8.5-2-10-8Z" />
               <path d="M24 14V8M24 8c0-2 2-3 4-2" />
@@ -163,30 +155,7 @@
 
         <div class="feature scrollReveal">
           <div class="featureText">
-            <span class="featureNum">03 · Senior capstone</span>
-            <h2>SageAI teaches whatever you want to learn.</h2>
-            <p>
-              An AI tutor that authors courses, adaptive quizzes, and spaced-repetition flashcards —
-              with a visual knowledge-graph browser and study analytics. Built offline-first with
-              Canvas LMS import across 50+ service modules, on a five-person team at Miami Dade
-              College.
-            </p>
-            <ul class="chips" aria-label="Technologies">
-              <li>React 19</li><li>TypeScript</li><li>Vercel AI SDK</li>
-              <li>React Flow</li><li>IndexedDB</li>
-            </ul>
-          </div>
-          <div class="featureArt artSage" aria-hidden="true">
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="14" cy="14" r="5" /><circle cx="36" cy="20" r="5" /><circle cx="22" cy="36" r="5" />
-              <path d="M18 17l13 2M17 18l3 13M33 24l-8 9" />
-            </svg>
-          </div>
-        </div>
-
-        <div class="feature reverse scrollReveal">
-          <div class="featureText">
-            <span class="featureNum">04 · In design</span>
+            <span class="featureNum">03 · Currently building</span>
             <h2>Bounty is Fiverr for your household.</h2>
             <p>
               Don't want to do the dishes? Post a bounty from your own points and let a roommate
@@ -197,7 +166,7 @@
               <li>SwiftUI</li><li>CloudKit</li><li>Swift Concurrency</li>
             </ul>
           </div>
-          <div class="featureArt artBounty" aria-hidden="true">
+          <div class="featureArt" aria-hidden="true">
             <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="24" cy="24" r="14" />
               <path d="M24 17v14M28 19.5c-1-1.5-7-2-7 1.5s7 1.5 7 5-6 3-7.5 1" />
@@ -246,21 +215,35 @@
         </ol>
       </section>
 
-      <!-- Toolbox -->
-      <section class="toolbox scrollReveal">
-        <span class="eyebrow">Toolbox</span>
-        <h2 class="sectionTitle">What I build with.</h2>
-        <ul class="chips chipsBig" aria-label="Skills">
-          <li>Swift</li><li>SwiftUI</li><li>SwiftData</li><li>CloudKit</li><li>StoreKit 2</li>
-          <li>Core Audio</li><li>Vision</li><li>Metal</li><li>Swift Concurrency</li>
-          <li>TypeScript</li><li>React</li><li>Cloudflare Workers</li><li>Python</li><li>Java</li>
-          <li>Fastlane CI/CD</li><li>Agentic workflows</li>
-        </ul>
-        <p class="toolboxFootnote">
-          App Development with Swift Associate — Apple ·
-          <a href="https://www.credly.com/badges/0081227f-6081-45f5-950d-d8294cbb1352/linked_in_profile" target="_blank" rel="noreferrer">verify on Credly</a>
-          · Bilingual English &amp; Spanish
-        </p>
+      <!-- About -->
+      <section class="about scrollReveal" id="about">
+        <div class="aboutPhoto">
+          <img
+            src="/assets/fuji.jpg"
+            alt="Bryan looking out over Fujiyoshida toward Mount Fuji"
+            width="1050"
+            height="1400"
+            loading="lazy"
+          />
+        </div>
+        <div class="aboutText">
+          <span class="eyebrow">About</span>
+          <h2 class="sectionTitle">What I build with.</h2>
+          <ul class="chips" aria-label="Skills">
+            <li>Swift</li><li>SwiftUI</li><li>SwiftData</li><li>CloudKit</li><li>StoreKit 2</li>
+            <li>Core Audio</li><li>Vision</li><li>Metal</li><li>Swift Concurrency</li>
+            <li>TypeScript</li><li>React</li><li>Cloudflare Workers</li>
+            <li>Fastlane CI/CD</li><li>Agentic workflows</li>
+          </ul>
+          <p class="aboutNote">
+            App Development with Swift Associate — Apple ·
+            <a href="https://www.credly.com/badges/0081227f-6081-45f5-950d-d8294cbb1352/linked_in_profile" target="_blank" rel="noreferrer">verify on Credly</a>
+          </p>
+          <p class="aboutNote">
+            Bilingual English &amp; Spanish. Based in Miami; happiest shipping apps — or staring at
+            Mount Fuji.
+          </p>
+        </div>
       </section>
 
       <!-- Closer -->

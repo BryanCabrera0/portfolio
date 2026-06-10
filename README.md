@@ -8,11 +8,11 @@ hairline borders, pill buttons, scroll reveals (after [gotcha.jurre.me](https://
 ## Structure
 
 ```text
-index.html    Single-page portfolio: hero, projects, experience, toolbox, contact
+index.html    Single-page portfolio: hero, projects, experience, about, contact
 styles.css    Design system (CSS variables in :root)
 script.js     IntersectionObserver scroll reveals (content visible without JS)
 404.html      Not-found page
-assets/       Project art (DRFT app icon)
+assets/       Photos, DRFT app icon, and DRFT screenshots
 vercel.json   Clean URLs + immutable asset caching
 ```
 
