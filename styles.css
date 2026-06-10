@@ -361,34 +361,42 @@ h1 {
   height: 42%;
 }
 
-/* DRFT phone screenshots */
-.phoneRow {
+/* DRFT iPhone mockup: raw screen layered under the transparent device frame.
+   Percentages map the 1320x2868 screen into the 1470x3000 frame artwork. */
+.iphoneMock {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
   width: 100%;
-  max-width: clamp(260px, 30vw, 340px);
+  max-width: clamp(240px, 26vw, 290px);
+  aspect-ratio: 1470 / 3000;
   margin: 0 auto;
-  padding: 10px 0;
+  filter: drop-shadow(0 18px 32px rgba(0, 0, 0, 0.18))
+    drop-shadow(0 6px 12px rgba(0, 0, 0, 0.1));
 }
 
-.phone {
+.iphoneMockScreen,
+.iphoneMockFrame {
+  position: absolute;
   display: block;
-  width: 62%;
-  height: auto;
-  border-radius: clamp(22px, 3vw, 30px);
-  border: 1px solid var(--hairline);
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+}
+
+.iphoneMockScreen {
+  top: 2.2%;
+  left: 5.102%;
+  width: 89.796%;
+  height: 95.6%;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 12.5% / 5.75%;
   background: #000;
 }
 
-.phoneBack {
-  transform: rotate(-3deg) translateX(12%);
-}
-
-.phoneFront {
-  transform: rotate(2.4deg) translateX(-12%) translateY(7%);
+.iphoneMockFrame {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
 }
 
 /* Experience */
@@ -682,8 +690,8 @@ html.noJs .scrollReveal {
     order: -1;
   }
 
-  .phoneRow {
-    max-width: clamp(230px, 64vw, 290px);
+  .iphoneMock {
+    max-width: clamp(210px, 56vw, 260px);
     order: -1;
   }
 
