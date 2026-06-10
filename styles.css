@@ -585,6 +585,123 @@ h1 {
   color: var(--ink);
 }
 
+/* Legal pages (after the reference design's legal layout) */
+.wordmarkLink {
+  border-bottom: none;
+}
+
+.legal {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: clamp(48px, 8vw, 88px) clamp(20px, 5vw, 40px) 0;
+}
+
+.legal .eyebrow {
+  margin-bottom: 18px;
+}
+
+.legal h1 {
+  font-size: clamp(34px, 6vw, 54px);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+  margin-bottom: 8px;
+}
+
+.legal .updated {
+  color: var(--secondary);
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 32px;
+}
+
+.legal h2 {
+  font-size: clamp(21px, 3vw, 27px);
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  margin: 40px 0 12px;
+}
+
+.legal h3 {
+  font-size: 17px;
+  font-weight: 800;
+  margin: 22px 0 6px;
+}
+
+.legal p,
+.legal li {
+  font-size: 16px;
+  font-weight: 500;
+  color: #3a3a3a;
+  margin-bottom: 12px;
+  text-wrap: pretty;
+}
+
+.legal ul,
+.legal ol {
+  padding-left: 22px;
+  margin-bottom: 12px;
+}
+
+.legal li {
+  margin-bottom: 8px;
+}
+
+.legal strong {
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.legal a {
+  font-weight: 700;
+  border-bottom: 1px solid var(--secondary);
+}
+
+.legal a:hover {
+  border-color: var(--ink);
+}
+
+.legal code {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.88em;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  padding: 1px 6px;
+}
+
+.legalCard {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin: 14px 0 8px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
+}
+
+.legalCard ul {
+  margin-bottom: 0;
+}
+
+/* Per-app legal links on project cards */
+.legalLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-top: 16px;
+  font-size: 13.5px;
+  font-weight: 700;
+}
+
+.legalLinks a {
+  color: var(--secondary);
+  border-bottom: none;
+}
+
+.legalLinks a:hover {
+  color: var(--ink);
+}
+
 /* Motion */
 @keyframes reveal {
   0% {
