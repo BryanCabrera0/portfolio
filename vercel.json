@@ -1,5 +1,10 @@
 {
   "cleanUrls": true,
+  "redirects": [
+    { "source": "/privacy", "destination": "/drft/privacy/", "permanent": true },
+    { "source": "/terms", "destination": "/drft/terms/", "permanent": true },
+    { "source": "/support", "destination": "/drft/support/", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",
