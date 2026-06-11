@@ -32,7 +32,7 @@
       <article class="legal">
         <span class="eyebrow">DRFT · Privacy</span>
         <h1>Privacy Policy</h1>
-        <p class="updated">LAST UPDATED: 2026-06-07</p>
+        <p class="updated">LAST UPDATED: 2026-06-11</p>
         <div class="legalBody">
 
           <section>
@@ -51,10 +51,10 @@
                   All speech recognition and wake word detection happen <strong>entirely on your device</strong> &mdash; no audio ever leaves your phone or computer.
                 </li>
                 <li>
-                  When you request an AI summary, a transcript snippet (&le;250 words of text) is sent to OpenAI through DRFT's Cloudflare proxy. <strong>Never raw audio.</strong> Free tier users get up to 3 rewarded-ad summary unlocks per day; Pro users get unlimited summaries.
+                  When you request an AI summary, a transcript snippet (&le;250 words of text) is sent to OpenAI through DRFT's Cloudflare proxy. <strong>Never raw audio.</strong> AI summaries are a Pro feature; free users see a Go Pro prompt on locked summaries.
                 </li>
                 <li>
-                  <strong>No product analytics SDKs in the app</strong> &mdash; no Firebase, Mixpanel, or similar. The free iPhone tier includes Google Mobile Ads; see the Advertising section below.
+                  <strong>No ads and no product analytics SDKs in the app</strong> &mdash; no advertising and no Google Mobile Ads, and no Firebase, Mixpanel, or similar, on any platform or tier.
                 </li>
                 <li>
                   Our website logs anonymized page views via Vercel Analytics &mdash; no cookies, no personal data.
@@ -131,7 +131,7 @@
               </li>
             </ul>
             <p>
-              <strong>Who can use AI summaries:</strong> Free tier users may unlock up to 3 AI summaries per day by watching a rewarded ad. Pro users get unlimited AI summaries. If you prefer never to send transcript text off-device, use <strong>Private Mode</strong> while it is active, or disable AI summaries.
+              <strong>Who can use AI summaries:</strong> AI summaries are a Pro feature. Free users see a Go Pro prompt on locked summaries. If you prefer never to send transcript text off-device, use <strong>Private Mode</strong> while it is active, or disable AI summaries.
             </p>
           </section>
           <section>
@@ -172,9 +172,7 @@
               <li><strong>Product Interaction</strong> &mdash; Detection events, session activity, and achievement progress; stored locally for the in-app gamification system.</li>
               <li><strong>Purchase History</strong> &mdash; Pro subscription status managed by Apple StoreKit; DRFT reads entitlement state only, never payment instrument details.</li>
               <li><strong>User ID</strong> &mdash; Opaque iCloud user record ID used to key the push-routing record in Cloudflare Workers KV and to pair devices for relay.</li>
-              <li><strong>Device ID</strong> &mdash; DRFT's push-routing device key is a fixed platform label (<code>iphone</code> or <code>mac</code>) used alongside the User ID to locate the registered APNs token and confirm a registered DRFT install. This App Store category also covers advertising device identifiers used by Google Mobile Ads on the iPhone free tier, such as IDFA when ATT consent is granted.</li>
-              <li><strong>Advertising Data</strong> &mdash; IDFA (when ATT consent is granted) and ad interaction events collected by Google Mobile Ads on the iPhone free tier only. Not collected on Mac or by Pro subscribers.</li>
-              <li><strong>Coarse Location</strong> &mdash; Non-precise location derived from IP address by Google Mobile Ads for ad targeting. iPhone free tier only.</li>
+              <li><strong>Device ID</strong> &mdash; DRFT's push-routing device key is a fixed platform label (<code>iphone</code> or <code>mac</code>) used alongside the User ID to locate the registered APNs token and confirm a registered DRFT install.</li>
             </ul>
           </section>
           <section id="section-7">
@@ -226,36 +224,13 @@
           </section>
           <section>
             <h2>
-              11. Advertising (iPhone free tier)
+              11. Advertising
             </h2>
             <p>
-              The free tier of DRFT on iPhone displays ads served by <strong>Google Mobile Ads (AdMob)</strong>. Ads do not appear on the Mac app or for Pro subscribers. The Mac app has no AdMob or UMP integration at any tier.
+              <strong>DRFT contains no advertising.</strong> There are no ads on any platform or tier &mdash; iPhone or Mac, free or Pro. DRFT does not integrate Google Mobile Ads (AdMob), the Google User Messaging Platform (UMP) consent SDK, or App Tracking Transparency, and it collects no advertising identifiers (such as IDFA), ad-interaction events, or IP-derived location for advertising purposes.
             </p>
             <p>
-              <strong>Consent for personalized advertising (UMP).</strong> Users in the <strong>European Economic Area (EEA), the United Kingdom (UK), and Switzerland (CH)</strong> are shown a consent form managed by Google's User Messaging Platform (UMP) SDK before DRFT requests any advertising identifiers or allows personalized advertising. Your choices are stored on-device by Google's SDK. You can re-open this consent form at any time from <strong>Settings &rarr; Manage Privacy Choices</strong>.
-            </p>
-            <p>
-              To serve ads, Google Mobile Ads may collect the device's advertising identifier (IDFA) when you grant App Tracking Transparency (ATT) permission, ad interaction events (impressions and clicks), and non-precise location derived from your IP address. If you decline the ATT prompt or withhold consent via the UMP form, ads are served in <strong>non-personalized mode</strong> &mdash; no IDFA is shared.
-            </p>
-            <p>
-              You can control ads in four ways:
-            </p>
-            <ul>
-              <li>
-                Decline the App Tracking Transparency prompt during onboarding.
-              </li>
-              <li>
-                Open Settings &rarr; Manage Privacy Choices to review or withdraw your UMP consent.
-              </li>
-              <li>
-                Reset or revoke permission at any time in iOS Settings &rarr; Privacy &amp; Security &rarr; Tracking &rarr; DRFT.
-              </li>
-              <li>
-                Upgrade to Pro to remove all ads.
-              </li>
-            </ul>
-            <p>
-              Data collected by Google Mobile Ads is governed by <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer" target="_blank" rel="noopener">Google's Privacy Policy</a> and described in <a href="https://support.google.com/admob/answer/7562142" target="_blank" rel="noreferrer" target="_blank" rel="noopener">Google's AdMob data disclosure</a>. Google&mdash;not DRFT&mdash;sets retention and use terms for that data.
+              An earlier version of the iPhone free tier showed ads served by Google Mobile Ads; advertising has since been removed from the app entirely.
             </p>
           </section>
           <section>
@@ -295,14 +270,6 @@
                 <span>Vercel / Vercel Analytics</span>
                 <span>Promo site hosting (drft.ing) + anonymized page views. No cookies.</span>
               </div>
-              <div>
-                <span>Google Mobile Ads (AdMob)</span>
-                <span>Ad serving on iPhone free tier only. IDFA (with ATT consent), ad interactions, IP-based non-precise location. Non-personalized mode if ATT or UMP consent is withheld.</span>
-              </div>
-              <div>
-                <span>Google UMP SDK</span>
-                <span>Consent management for personalized advertising (EEA, UK, CH). iPhone free tier only.</span>
-              </div>
             </div>
             <p>
               We do not sell, rent, or share your personal data with any third party for their own marketing purposes.
@@ -336,18 +303,18 @@
               <li><strong>Restriction</strong> &mdash; request that we restrict processing in certain circumstances.</li>
               <li><strong>Portability</strong> &mdash; receive your data in a machine-readable format.</li>
               <li><strong>Objection</strong> &mdash; object to processing based on legitimate interests.</li>
-              <li><strong>Withdraw consent</strong> &mdash; withdraw any consent you have given at any time (e.g., via Settings &rarr; Manage Privacy Choices for advertising).</li>
+              <li><strong>Withdraw consent</strong> &mdash; withdraw any consent you have given at any time.</li>
               <li><strong>Lodge a complaint</strong> &mdash; with your national supervisory authority.</li>
             </ul>
             <p>
-              <strong>Lawful basis per data category:</strong> Push routing data (APNs token + opaque iCloud ID) &mdash; contract performance (delivering the notification service you enabled). Transcript text forwarded for AI summaries &mdash; legitimate interest (providing the feature you requested) with the ability to opt out at any time. Advertising identifiers (AdMob/IDFA) &mdash; consent (ATT prompt and UMP form). Name in iCloud KV &mdash; contract performance (personalizing your feedback submissions).
+              <strong>Lawful basis per data category:</strong> Push routing data (APNs token + opaque iCloud ID) &mdash; contract performance (delivering the notification service you enabled). Transcript text forwarded for AI summaries &mdash; legitimate interest (providing the feature you requested) with the ability to opt out at any time. Name in iCloud KV &mdash; contract performance (personalizing your feedback submissions).
             </p>
             <p>
               <!-- OWNER REVIEW: A personal Gmail address was previously listed as a secondary contact for rights requests. Replaced with support@drft.ing. If a separate privacy@ alias is desired (e.g., privacy@drft.ing), the owner should create it and update this section. -->
               We will respond to rights requests within 30 days. To submit a request, email <a href="mailto:support@drft.ing">support@drft.ing</a>.
             </p>
             <p>
-              <strong>CCPA / CPRA (California residents).</strong> We do not sell personal information for money. AdMob's use of advertising identifiers for cross-context behavioral advertising may constitute &ldquo;sharing&rdquo; under CCPA. You can limit this by declining the ATT prompt, adjusting your UMP consent via Settings &rarr; Manage Privacy Choices, or upgrading to Pro (which removes all ads). California residents have the right to know what personal information is collected, to delete it, to correct it, to limit use of sensitive PI, and to non-discrimination for exercising these rights. Categories of PI we collect: identifiers (via AdMob, IDFA); internet/network activity (ad interactions via AdMob); name (iCloud KV, if provided during onboarding).
+              <strong>CCPA / CPRA (California residents).</strong> We do not sell or share personal information. DRFT serves no ads and uses no advertising identifiers or cross-context behavioral advertising. California residents have the right to know what personal information is collected, to delete it, to correct it, to limit use of sensitive PI, and to non-discrimination for exercising these rights. Categories of PI we collect: identifiers (opaque iCloud user record ID and device label, used for push routing); name (iCloud KV, if provided during onboarding).
             </p>
           </section>
           <section>
