@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="color-scheme" content="light" />
+    <title>Privacy Policy — Shelf | Bryan Cabrera</title>
+    <meta name="description" content="Privacy Policy for Shelf, the food expiry tracker for iPhone by Bryan Cabrera. Snap food, watch the sticker wilt, eat it in time." />
+    <meta name="author" content="Bryan Cabrera" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#fdfdfd" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+      <header class="header">
+        <a class="wordmark wordmarkLink" href="/">Bryan Cabrera</a>
+        <nav class="headerNav" aria-label="Shelf pages">
+          <a href="/shelf/privacy/" aria-current="page">Privacy</a>
+          <a href="/shelf/terms/">Terms</a>
+          <a href="/shelf/support/">Support</a>
+          <a href="/#work" class="navPill">All apps</a>
+        </nav>
+      </header>
+
+      <article class="legal">
+        <span class="eyebrow">Shelf · Privacy</span>
+        <h1>Privacy Policy</h1>
+        <p class="updated">LAST UPDATED: 2026-06-12</p>
+        <div class="legalBody">
+
+          <section>
+            <h2>
+              1. The short version
+            </h2>
+            <div class="legalCard">
+              <ul>
+                <li>
+                  <strong>No Shelf account. No Shelf server-side database.</strong> There is no sign-up, no login, and no email field anywhere in the app.
+                </li>
+                <li>
+                  Your photos, stickers, food names, expiry clocks, and savings stats live <strong>on your iPhone</strong>, in the app's local database.
+                </li>
+                <li>
+                  The free experience is <strong>fully offline</strong> &mdash; photo cutout and identification run entirely on-device with Apple's Vision framework. No network requests, ever, unless you use the two Pro features below.
+                </li>
+                <li>
+                  <strong>Smart ID (Pro, optional):</strong> when on, the food photo you snap is sent to OpenAI through our Cloudflare proxy to name the food and estimate its expiry. Never stored by us. A settings toggle turns it off completely.
+                </li>
+                <li>
+                  <strong>Shared shelf (Pro feature, optional):</strong> sharing a shelf syncs stickers through your own private iCloud database via Apple CloudKit. Shelf has no server in that path.
+                </li>
+                <li>
+                  <strong>No ads, no analytics, no tracking</strong> &mdash; no advertising SDK, no analytics SDK, no crash reporter, no advertising identifier (IDFA), and no App Tracking Transparency prompt, on any tier.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section>
+            <h2>
+              2. What Shelf is
+            </h2>
+            <p>
+              Shelf is a food expiry tracker for iPhone. You snap a photo of food, the photo becomes a die-cut sticker on a virtual shelf, and the sticker visually wilts in real time until you eat it (peel it off) or it expires. Shelf tracks only when food goes bad &mdash; no inventory, no barcodes, no shopping lists, and no accounts of any kind.
+            </p>
+          </section>
+          <section>
+            <h2>
+              3. Data stored on your device
+            </h2>
+            <p>
+              Shelf stores the following data locally on your iPhone using SwiftData:
+            </p>
+            <ul>
+              <li>
+                <strong>Stickers</strong> &mdash; The food photos you snap, their cutout sticker images, the food's name, and its expiry clock.
+              </li>
+              <li>
+                <strong>Savings ledger</strong> &mdash; A count and estimated value of food you ate in time, used for the monthly saved stat.
+              </li>
+              <li>
+                <strong>App settings</strong> &mdash; Preferences such as your nudge time, shelf name, and the Smart ID toggle.
+              </li>
+            </ul>
+            <p>
+              This data stays on your device. Deleting the app deletes all of it. Nothing is uploaded for the core free experience, which works fully offline &mdash; airplane mode included.
+            </p>
+          </section>
+          <section>
+            <h2>
+              4. No ads, no tracking
+            </h2>
+            <p>
+              Shelf serves no ads on any tier. The app contains no advertising SDK, no third-party analytics SDK (no Firebase, Mixpanel, Amplitude, or equivalent), no crash reporter, and no advertising identifier (IDFA). Shelf never shows an App Tracking Transparency prompt because there is nothing to ask about &mdash; the app does not track you, and its privacy manifest declares <code>NSPrivacyTracking = false</code>.
+            </p>
+          </section>
+          <section>
+            <h2>
+              5. Smart ID (Pro) &mdash; the only photo that ever leaves your device
+            </h2>
+            <p>
+              Smart ID is a Pro convenience that names the food and sets an expiry clock automatically. When (and only when) you are a Pro subscriber <em>and</em> the Smart ID toggle in settings is on, the photo you snap is:
+            </p>
+            <ul>
+              <li>
+                Downscaled to at most <strong>1024px</strong> before it leaves the device.
+              </li>
+              <li>
+                Sent over <strong>HTTPS</strong> to our Cloudflare Workers proxy, which forwards it to the <strong>OpenAI API</strong> for identification and is <strong>not stored or logged</strong> by our proxy.
+              </li>
+              <li>
+                Accompanied by exactly two pieces of context: the capture time and your device locale. <strong>No account, name, email, device identifier, or location is sent</strong> &mdash; Shelf has none of these to send.
+              </li>
+            </ul>
+            <p>
+              Photos sent to OpenAI are governed by <a href="https://openai.com/policies/api-data-usage-policies/" target="_blank" rel="noopener noreferrer">OpenAI's API data usage policies</a>; OpenAI states that API inputs and outputs are not used to train its models by default.
+            </p>
+            <p>
+              This is disclosed inside the app, next to the toggle: &ldquo;Smart ID sends the photo to OpenAI to name it &mdash; turn it off and your photos never leave this iPhone.&rdquo; Turning the toggle off (or not subscribing) means exactly that. Free-tier identification is 100% on-device and never touches the network.
+            </p>
+          </section>
+          <section>
+            <h2>
+              6. Shared shelf (Pro feature) &amp; iCloud
+            </h2>
+            <p>
+              A Pro subscriber can share their shelf with up to 100 people; invitees join free. Sharing uses <strong>Apple CloudKit zone sharing</strong>: stickers on a shared shelf (photos, names, clocks) sync through the owner's <strong>private iCloud database</strong>, and Apple manages all identity and access through your iCloud account. Shelf operates no server in this path and cannot read the shared data &mdash; it moves between Apple's iCloud and the participants' devices.
+            </p>
+            <p>
+              The shelf's name (and the optional display name you set for attribution) is visible to the people you share with &mdash; that is its purpose. If you never share or join a shelf, Shelf never touches iCloud.
+            </p>
+          </section>
+          <section>
+            <h2>
+              7. App Store privacy nutrition label
+            </h2>
+            <p>
+              Shelf's App Store privacy label declares exactly one collected data type:
+            </p>
+            <ul>
+              <li>
+                <strong>Photos or Videos</strong> &mdash; The Pro Smart ID photo described in section 5. Purpose: app functionality only. Not linked to your identity (there are no accounts). Not used for tracking.
+              </li>
+            </ul>
+            <p>
+              Nothing else is collected. Purchases are processed entirely by Apple through StoreKit; Shelf reads entitlement state only and never sees your payment details.
+            </p>
+          </section>
+          <section>
+            <h2>
+              8. Notifications
+            </h2>
+            <p>
+              Shelf schedules <strong>local notifications only</strong> &mdash; one quiet nudge on a sticker's last good day, at the time you pick in settings. Notifications are created and delivered on your device and never pass through any server.
+            </p>
+          </section>
+          <section>
+            <h2>
+              9. Children's privacy
+            </h2>
+            <p>
+              Shelf is not directed at children under the age of 13. We do not knowingly collect personal information from children. If you believe a child has provided us with data, contact us at <a href="mailto:support@drft.ing">support@drft.ing</a> and we will delete it promptly.
+            </p>
+          </section>
+          <section>
+            <h2>
+              10. Your rights
+            </h2>
+            <p>
+              Because virtually all Shelf data lives on your device, you have direct control: deleting the app removes all local data, and peeling or composting a sticker removes it immediately. The one item not deleted with the app is your StoreKit subscription entitlement, which Apple owns &mdash; manage it in Settings &rarr; Apple ID &rarr; Subscriptions.
+            </p>
+            <p>
+              <strong>GDPR (EEA, UK, Switzerland).</strong> You have the rights of access, rectification, erasure, restriction, portability, objection, and withdrawal of consent over any personal data Shelf processes, and the right to lodge a complaint with your supervisory authority. The only off-device processing is the transient Smart ID photo (legitimate interest in providing the feature you requested, with an in-app off switch) and iCloud sharing you initiate (contract performance). To submit a request, email <a href="mailto:support@drft.ing">support@drft.ing</a>; we respond within 30 days.
+            </p>
+            <p>
+              <strong>CCPA / CPRA (California residents).</strong> We do not sell or share personal information, serve no ads, and use no advertising identifiers or cross-context behavioral advertising. The only personal information processed is the Smart ID photo described above, which is not retained.
+            </p>
+          </section>
+          <section>
+            <h2>
+              11. Data retention
+            </h2>
+            <p>
+              Smart ID photos are ephemeral off-device: they pass through our Cloudflare proxy to OpenAI's API and are not stored or logged by our proxy. Everything else lives on your iPhone (and, for shared shelves, in the owner's private iCloud database) until you delete it. Shelf retains nothing server-side &mdash; there is no server-side database to retain anything in. Support emails are kept in our inbox only as long as needed to respond to you.
+            </p>
+          </section>
+          <section>
+            <h2>
+              12. Security
+            </h2>
+            <p>
+              All network communication (Pro Smart ID and iCloud sharing) uses HTTPS/TLS encryption. On-device data is protected by iOS system encryption and your device passcode. CloudKit data is encrypted at rest by Apple.
+            </p>
+          </section>
+          <section>
+            <h2>
+              13. Changes to this policy
+            </h2>
+            <p>
+              We may update this Privacy Policy from time to time. The &ldquo;Last Updated&rdquo; date at the top reflects the most recent revision. <strong>Material changes will be communicated through the App or this page at least 30 days before taking effect.</strong>
+            </p>
+          </section>
+          <section>
+            <h2>
+              14. Contact
+            </h2>
+            <p>
+              Questions, concerns, or rights requests? Reach out at <a href="mailto:support@drft.ing">support@drft.ing</a>. We respond within 30 days.
+            </p>
+            <p>
+              See also: <a href="/shelf/terms/">Terms of Service</a>.
+            </p>
+          </section>
+
+        </div>
+      </article>
+
+      <footer class="footer">
+        <span>Bryan Cabrera</span>
+        <span class="footerDot">·</span>
+        <span><a href="/">Home</a></span>
+        <span class="footerDot">·</span>
+        <span><a href="mailto:support@drft.ing">support@drft.ing</a></span>
+      </footer>
+    </main>
+  </body>
+</html>
