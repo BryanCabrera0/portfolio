@@ -361,42 +361,28 @@ h1 {
   height: 42%;
 }
 
-/* DRFT iPhone mockup: raw screen layered under the transparent device frame.
-   Percentages map the 1320x2868 screen into the 1470x3000 frame artwork. */
-.iphoneMock {
-  position: relative;
+/* App icon tile (DRFT, Shelf) — iOS-style rounded squircle */
+.appIcon {
   width: 100%;
-  max-width: clamp(240px, 26vw, 290px);
-  aspect-ratio: 1470 / 3000;
+  max-width: clamp(168px, 22vw, 248px);
   margin: 0 auto;
-  filter: drop-shadow(0 18px 32px rgba(0, 0, 0, 0.18))
-    drop-shadow(0 6px 12px rgba(0, 0, 0, 0.1));
 }
 
-.iphoneMockScreen,
-.iphoneMockFrame {
-  position: absolute;
+.appIcon img {
   display: block;
-  pointer-events: none;
-}
-
-.iphoneMockScreen {
-  top: 2.2%;
-  left: 5.102%;
-  width: 89.796%;
-  height: 95.6%;
-  object-fit: cover;
-  object-position: top center;
-  border-radius: 12.5% / 5.75%;
-  background: #000;
-}
-
-.iphoneMockFrame {
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  z-index: 2;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 22.5%;
+  border: 1px solid var(--hairline);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+
+.appIcon img:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 42px rgba(0, 0, 0, 0.14), 0 3px 10px rgba(0, 0, 0, 0.06);
 }
 
 /* Experience */
@@ -807,8 +793,8 @@ html.noJs .scrollReveal {
     order: -1;
   }
 
-  .iphoneMock {
-    max-width: clamp(210px, 56vw, 260px);
+  .appIcon {
+    max-width: clamp(150px, 42vw, 210px);
     order: -1;
   }
 
@@ -835,6 +821,7 @@ html.noJs .scrollReveal {
 
   .heroPhoto,
   .aboutPhoto,
+  .appIcon img,
   .btn,
   .btnGhost,
   .btnSmall,
