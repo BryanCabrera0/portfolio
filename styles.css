@@ -30,7 +30,9 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden; /* guard against parallax overscan (scale 1.04) bleeding past the viewport */
+  overflow-x: clip; /* guard against parallax overscan (scale 1.04) bleeding past the viewport;
+                       clip (not hidden) avoids forcing overflow-y:auto, which would turn body into a
+                       scroll container and clip the sticky header's focus outline */
 }
 
 a {
@@ -224,24 +226,40 @@ h1 {
 
 /* Hero photo */
 .heroPhoto {
+  --rot: 1.6deg;
   justify-self: center;
   width: 100%;
   max-width: clamp(280px, 32vw, 380px);
-  transform: rotate(1.6deg);
-  transition: transform 0.3s var(--ease-out);
 }
 
-.heroPhoto:hover {
-  transform: rotate(0deg);
-}
-
-.heroPhoto img {
-  display: block;
-  width: 100%;
-  height: auto;
+/* Clipped frame so the Ken Burns zoom never bleeds past the rounded edge */
+.photoFrame {
+  overflow: hidden;
   border-radius: calc(var(--radius) * 1.5);
   border: 1px solid var(--hairline);
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
+  transform: rotate(var(--rot));
+  transition: transform 0.4s var(--ease-out);
+}
+
+.heroPhoto:hover .photoFrame,
+.aboutPhoto:hover .photoFrame {
+  transform: rotate(0deg);
+}
+
+.heroPhoto img,
+.aboutPhoto img {
+  display: block;
+  width: 100%;
+  height: auto;
+  animation: kenBurns 26s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* Slow continuous zoom + pan (Ken Burns) */
+@keyframes kenBurns {
+  from { transform: scale(1.04); transform-origin: 28% 30%; }
+  to { transform: scale(1.12); transform-origin: 72% 66%; }
 }
 
 /* Features (projects) */
@@ -439,24 +457,10 @@ h1 {
 }
 
 .aboutPhoto {
+  --rot: -1.8deg;
   max-width: clamp(240px, 28vw, 340px);
   width: 100%;
   margin: 0 auto;
-  transform: rotate(-1.8deg);
-  transition: transform 0.3s var(--ease-out);
-}
-
-.aboutPhoto:hover {
-  transform: rotate(0deg);
-}
-
-.aboutPhoto img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: calc(var(--radius) * 1.5);
-  border: 1px solid var(--hairline);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
 }
 
 .aboutText .sectionTitle {
@@ -693,15 +697,43 @@ h1 {
   animation: reveal 0.75s var(--ease-out) both;
 }
 
+/* Headline title-card: words blur up into place, staggered (JS-split).
+   No overflow mask — a hard clip edge would slice the blurred glyphs; the
+   blur itself softens the entrance instead. */
+.hero h1 .word {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.hero h1 .wordInner {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.42em);
+  filter: blur(12px);
+  animation: wordRise 1s var(--ease-out) forwards;
+  animation-delay: calc(var(--i) * 0.08s + 0.1s);
+}
+
+@keyframes wordRise {
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
 .scrollReveal {
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.75s var(--ease-out), transform 0.75s var(--ease-out);
+  transform: translateY(20px) scale(0.985);
+  filter: blur(6px);
+  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out),
+    filter 0.9s var(--ease-out);
 }
 
 .scrollReveal.in {
   opacity: 1;
   transform: none;
+  filter: blur(0);
 }
 
 /* No-JS fallback: never hide content when the observer can't run */
@@ -724,49 +756,51 @@ html.noJs .scrollReveal {
       transition: none;
       animation: scrubUp linear both;
       animation-timeline: view();
-      animation-range: entry 0% cover 22%;
+      animation-range: entry 0% cover 32%;
     }
 
+    /* Focus-pull: each block racks from soft blur + scale into sharp focus */
     @keyframes scrubUp {
       from {
         opacity: 0;
-        transform: translateY(46px);
+        transform: translateY(64px) scale(0.97);
+        filter: blur(9px);
       }
       to {
         opacity: 1;
         transform: none;
+        filter: blur(0);
       }
     }
 
-    /* Hero gently recedes as you scroll into the page */
+    /* Hero recedes deeper as you scroll into the page */
     .heroCopy {
       animation: heroLift linear both;
       animation-timeline: scroll(root);
-      animation-range: 0 78vh;
+      animation-range: 0 92vh;
     }
 
     @keyframes heroLift {
       to {
-        opacity: 0.5;
-        transform: translateY(-30px);
+        opacity: 0.35;
+        transform: translateY(-64px) scale(0.97);
       }
     }
 
-    /* Photos parallax-drift for depth (slight overscan hides the edges) */
-    .heroPhoto img,
-    .aboutPhoto img {
-      animation: driftPhoto linear both;
+    /* Photo frames parallax-drift for depth (rotation preserved in the keyframe) */
+    .photoFrame {
+      animation: floatPhoto linear both;
       animation-timeline: view();
       animation-range: cover;
       will-change: transform;
     }
 
-    @keyframes driftPhoto {
+    @keyframes floatPhoto {
       from {
-        transform: translateY(-18px) scale(1.04);
+        transform: rotate(var(--rot)) translateY(-34px);
       }
       to {
-        transform: translateY(18px) scale(1.04);
+        transform: rotate(var(--rot)) translateY(34px);
       }
     }
 
@@ -780,10 +814,10 @@ html.noJs .scrollReveal {
 
     @keyframes driftIcon {
       from {
-        transform: translateY(14px);
+        transform: translateY(28px);
       }
       to {
-        transform: translateY(-14px);
+        transform: translateY(-28px);
       }
     }
   }
@@ -918,7 +952,21 @@ html.noJs .scrollReveal {
   .scrollReveal {
     opacity: 1;
     transform: none;
+    filter: none;
     transition: none;
+  }
+
+  .heroPhoto img,
+  .aboutPhoto img {
+    animation: none;
+    transform: none;
+  }
+
+  .hero h1 .wordInner {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
   }
 
   .heroPhoto,
