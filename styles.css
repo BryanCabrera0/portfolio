@@ -30,6 +30,7 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden; /* guard against parallax overscan (scale 1.04) bleeding past the viewport */
 }
 
 a {
@@ -662,6 +663,19 @@ h1 {
   color: var(--ink);
 }
 
+/* ---------- App-icon 3D tilt (App Store-style parallax) ---------- */
+.appIcon {
+  perspective: 820px;
+}
+
+.appIcon img {
+  will-change: transform;
+}
+
+.pointer-fine .appIcon img {
+  transition: transform 0.18s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+
 /* Motion */
 @keyframes reveal {
   0% {
@@ -848,6 +862,46 @@ html.noJs .scrollReveal {
 
   .xpHead {
     flex-direction: column;
+  }
+}
+
+/* Phones: the full horizontal nav can't fit beside the wordmark, so collapse to
+   wordmark + Contact pill (single short-scroll page makes in-page anchors low
+   value here), and give the primary CTA its own full-width row. */
+@media (max-width: 600px) {
+  .header {
+    padding: 14px 20px;
+  }
+
+  .wordmark {
+    white-space: nowrap;
+    font-size: 18px;
+  }
+
+  .headerNav {
+    gap: 0;
+  }
+
+  .headerNav a:not(.navPill) {
+    display: none;
+  }
+
+  .navPill {
+    padding: 9px 18px;
+  }
+
+  .ctaRow .btn {
+    flex: 1 1 100%;
+    text-align: center;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  .ctaRow .btnGhost {
+    flex: 1 1 0;
+    text-align: center;
+    padding-top: 14px;
+    padding-bottom: 14px;
   }
 }
 
