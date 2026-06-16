@@ -8,14 +8,16 @@ import { mkdirSync, writeFileSync } from "node:fs";
 const DRFT_REPO = "/Users/bryan/DRFT";
 const SRC_COMMIT = "52dd5110"; // last commit containing promo-site/
 const OUT_ROOT = new URL("..", import.meta.url).pathname;
+const DEFAULT_CONTACT_EMAIL = "support@drft.ing";
+const DRFT_SUPPORT_EMAIL = "nohbodie@icloud.com";
 
 const PAGES = [
   { slug: "privacy", title: "Privacy Policy", eyebrow: "DRFT · Privacy" },
   { slug: "terms", title: "Terms of Service", eyebrow: "DRFT · Terms" },
-  { slug: "support", title: "Support", eyebrow: "DRFT · Support" },
+  { slug: "support", title: "Support", eyebrow: "DRFT · Support", contactEmail: DRFT_SUPPORT_EMAIL },
 ];
 
-const shell = ({ title, eyebrow, updated, body, slug }) => `<!DOCTYPE html>
+const shell = ({ title, eyebrow, updated, body, slug, contactEmail = DEFAULT_CONTACT_EMAIL }) => `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -60,7 +62,7 @@ ${body}
         <span class="footerDot">·</span>
         <span><a href="/">Home</a></span>
         <span class="footerDot">·</span>
-        <span><a href="mailto:support@drft.ing">support@drft.ing</a></span>
+        <span><a href="mailto:${contactEmail}">${contactEmail}</a></span>
       </footer>
     </main>
   </body>
@@ -108,6 +110,10 @@ for (const page of PAGES) {
     .replace(/\shref="\/(privacy|terms|support)\/?"/g, ' href="/drft/$1/"')
     .replace(/\shref="\/#([a-z-]+)"/g, ' href="https://drft.ing/#$1"')
     .replace(/<a\s+href="(https?:[^"]*)"/g, '<a href="$1" target="_blank" rel="noreferrer"');
+
+  if (page.contactEmail) {
+    body = body.replaceAll(DEFAULT_CONTACT_EMAIL, page.contactEmail);
+  }
 
   const outDir = `${OUT_ROOT}drft/${page.slug}`;
   mkdirSync(outDir, { recursive: true });
