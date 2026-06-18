@@ -167,11 +167,13 @@ a {
   color: #fff;
 }
 
-/* Apple chevron text-link — "GitHub ›" */
+/* Apple chevron text-link — "GitHub ›". inline-block (not flex) so the hover
+   underline runs continuously under the text; the chevron is an inline-block
+   ::after, and underlines don't cross atomic inline-blocks — so it's never
+   underlined or clipped into a disconnected stub. */
 .btnLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
+  display: inline-block;
+  white-space: nowrap;
   color: var(--link);
   font-weight: 400;
   font-size: 17px;
@@ -181,12 +183,12 @@ a {
 
 .btnLink::after {
   content: "\203A"; /* › */
+  display: inline-block;
+  margin-left: 4px;
   font-size: 1.05em;
-  line-height: 1;
 }
 
 .btnLink:hover {
-  color: var(--link);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
