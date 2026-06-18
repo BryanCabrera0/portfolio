@@ -8,7 +8,7 @@
     <meta name="description" content="Bryan Cabrera is an iOS and macOS engineer in Miami. Creator of DRFT (live on the App Store), currently building Shelf. Swift, SwiftUI, and on-device AI." />
     <meta name="author" content="Bryan Cabrera" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <meta name="theme-color" content="#fdfdfd" />
+    <meta name="theme-color" content="#ffffff" />
 
     <!-- Open Graph -->
     <meta property="og:title" content="Bryan Cabrera — iOS &amp; macOS Engineer" />
@@ -16,14 +16,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_US" />
 
-    <!-- Fonts: Nunito (matches the reference design) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
-
+    <!-- Type: SF Pro via the system font stack (no web-font fetch) -->
     <link rel="stylesheet" href="/styles.css" />
 
     <!-- JSON-LD -->
@@ -68,9 +61,9 @@
             is live on the App Store.
           </p>
           <div class="ctaRow reveal" style="animation-delay: 0.28s">
-            <a class="btn" href="#work">See my work</a>
-            <a class="btnGhost" href="https://github.com/BryanCabrera0" target="_blank" rel="noreferrer">GitHub</a>
-            <a class="btnGhost" href="https://www.linkedin.com/in/bryancabrera0/" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a class="btnFill" href="#work">See my work</a>
+            <a class="btnLink" href="https://github.com/BryanCabrera0" target="_blank" rel="noreferrer">GitHub</a>
+            <a class="btnLink" href="https://www.linkedin.com/in/bryancabrera0/" target="_blank" rel="noreferrer">LinkedIn</a>
           </div>
           <p class="microcopy reveal" style="animation-delay: 0.34s">
             BS Software Engineering · Miami Dade College · December 2026
@@ -90,27 +83,12 @@
         </div>
       </section>
 
-      <!-- Projects -->
-      <section class="features" id="work">
-        <div class="feature scrollReveal">
-          <div class="featureText">
-            <span class="status status--live"><span class="statusDot"></span> Live on the App Store</span>
-            <h2>DRFT hears your name so you don't have to.</h2>
-            <p>
-              DRFT listens for your name and custom wake words during meetings, calls, and lectures
-              — fully on-device. Nothing recorded, nothing uploaded. On iPhone and Mac.
-            </p>
-            <div class="featureLinks">
-              <a class="btnSmall" href="https://apps.apple.com/us/app/drft-keyword-alerts/id6760685733" target="_blank" rel="noreferrer">App&nbsp;Store</a>
-            </div>
-            <p class="legalLinks">
-              <a href="/drft/privacy/">Privacy</a>
-              <a href="/drft/terms/">Terms</a>
-              <a href="/drft/support/">Support</a>
-            </p>
-          </div>
-          <div class="appIcon">
+      <!-- DRFT — cinematic product reveal (the signature moment) -->
+      <section class="cinematic" id="work" aria-labelledby="drftTitle">
+        <div class="cinematicStage">
+          <div class="cinematicInner">
             <img
+              class="cinematicIcon"
               src="/assets/drft-icon.png?v=2"
               alt="DRFT app icon"
               width="512"
@@ -118,9 +96,26 @@
               loading="lazy"
               decoding="async"
             />
+            <div class="cinematicCopy">
+              <span class="status status--live"><span class="statusDot"></span> Live on the App Store</span>
+              <h2 id="drftTitle">DRFT hears your name so you don't have to.</h2>
+              <p>
+                DRFT listens for your name and custom wake words during meetings, calls,
+                and lectures — fully on-device. Nothing recorded, nothing uploaded. On
+                iPhone and Mac.
+              </p>
+              <div class="cinematicActions">
+                <a class="btnFill" href="https://apps.apple.com/us/app/drft-keyword-alerts/id6760685733" target="_blank" rel="noreferrer">Download on the App&nbsp;Store</a>
+                <a class="btnLink onDark" href="/drft/privacy/">Privacy</a>
+                <a class="btnLink onDark" href="/drft/support/">Support</a>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
 
+      <!-- Shelf — light feature -->
+      <section class="features" id="shelf">
         <div class="feature reverse scrollReveal">
           <div class="featureText">
             <span class="status status--wip"><span class="statusDot"></span> Currently building</span>
@@ -185,7 +180,8 @@
       </section>
 
       <!-- About -->
-      <section class="about scrollReveal" id="about">
+      <section class="aboutSection scrollReveal" id="about">
+        <div class="about">
         <div class="aboutPhoto">
           <div class="photoFrame">
             <img
@@ -214,19 +210,20 @@
             Mount Fuji.
           </p>
         </div>
+        </div>
       </section>
 
       <!-- Closer -->
       <section class="closer scrollReveal" id="contact">
-        <span class="status status--live closerStatus"><span class="statusDot"></span> Available for new roles</span>
+        <span class="status status--live"><span class="statusDot"></span> Available for new roles</span>
         <h2>Ready when you are.</h2>
         <p class="lede ledeCenter">
           Building and shipping software people love.
         </p>
         <div class="ctaRow ctaRowCenter">
-          <a class="btn" href="mailto:bryancw2020@gmail.com">Email me</a>
-          <a class="btnGhost" href="https://github.com/BryanCabrera0" target="_blank" rel="noreferrer">GitHub</a>
-          <a class="btnGhost" href="https://www.linkedin.com/in/bryancabrera0/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="btnFill" href="mailto:bryancw2020@gmail.com">Email me</a>
+          <a class="btnLink" href="https://github.com/BryanCabrera0" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="btnLink" href="https://www.linkedin.com/in/bryancabrera0/" target="_blank" rel="noreferrer">LinkedIn</a>
         </div>
         <p class="microcopy">bryancw2020@gmail.com · Miami, FL</p>
       </section>
