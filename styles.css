@@ -1,10 +1,10 @@
 /* Bryan Cabrera — portfolio.
    Design language: Apple marketing (apple.com product pages). SF Pro system
    stack, semibold headlines with tight negative tracking, neutral ink/paper
-   palette with one true-black product act, pill + chevron-link buttons, and
-   full-bleed alternating light/dark/grey sections. Tokens cross-referenced
-   against Apple's live production CSS. Motion is a single gentle reveal-on-
-   enter (reduced-motion respected); no scroll-scrubbing or pinning.
+   neutral palette, pill + chevron-link buttons, and full-bleed alternating
+   light/grey sections. Tokens cross-referenced against Apple's live production
+   CSS. Motion is a single gentle reveal-on-enter (reduced-motion respected);
+   no scroll-scrubbing or pinning.
    Single file, no build step — also serves the /drft and /shelf legal pages. */
 
 :root {
@@ -21,14 +21,8 @@
   --tertiary: #6e6e73;     /* captions, footnotes, footer — AA on grey too */
   --hairline: #d2d2d7;
 
-  /* Dark act */
-  --bg-dark: #000000;
-  --ink-on-dark: #f5f5f7;
-  --secondary-on-dark: #a1a1a6;
-
   /* Accent / links */
   --link: #0066cc;
-  --link-on-dark: #2997ff;
   --cta: #0071e3;
   --cta-hover: #0077ed;
 
@@ -211,12 +205,6 @@ a {
   transform: translateX(3px);
 }
 
-/* On-dark variants */
-.onDark .btnLink,
-.btnLink.onDark {
-  color: var(--link-on-dark);
-}
-
 .btnGhost {
   display: inline-flex;
   align-items: center;
@@ -371,53 +359,42 @@ h1 {
 }
 
 /* ----------------------------------------------------- Showcase (DRFT) ---
-   Static full-bleed dark feature — Apple's "dark product act," used to make
-   vivid product imagery pop (cf. apple.com camera/performance sections). The
-   black-bodied DRFT icon is spotlit so its squircle edge reads against black.
-   No pin, no scroll-scrub — just a clean centered moment for the flagship app. */
+   Static light feature on Apple's grey (#f5f5f7) — the flagship app gets a
+   centered "product moment" (cf. apple.com light feature sections): centered
+   icon, big SF headline, intro copy, CTA. Kept centered (vs Shelf's two-up) so
+   DRFT reads as primary. The black-bodied icon reads on grey via its shadow. */
 .showcase {
   position: relative;
-  background: var(--bg-dark);
-  color: var(--ink-on-dark);
+  background: var(--bg-alt);
+  color: var(--ink);
 }
 
 .showcaseStage {
-  min-height: 100svh;
   display: grid;
   place-items: center;
-  padding: clamp(80px, 14vh, 160px) clamp(20px, 6vw, 48px);
-  /* Spotlight so the black-bodied DRFT icon reads against the black act */
-  background: radial-gradient(115% 75% at 50% 34%, #1a1a1d 0%, #070708 52%, #000 100%);
+  padding: clamp(80px, 13vw, 150px) clamp(20px, 6vw, 48px);
 }
 
 .showcaseInner {
   display: grid;
   justify-items: center;
   text-align: center;
-  gap: clamp(28px, 4vw, 44px);
+  gap: clamp(26px, 4vw, 40px);
   max-width: 720px;
 }
 
 .showcaseIcon {
-  width: clamp(168px, 27vw, 290px);
+  width: clamp(160px, 26vw, 280px);
   height: auto;
   aspect-ratio: 1;
   border-radius: 22.5%;
-  /* Hairline ring defines the squircle edge on black; soft cool halo lifts it */
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.09),
-    0 30px 80px rgba(0, 0, 0, 0.6), 0 0 100px 8px rgba(130, 130, 150, 0.14);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.14), 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .showcaseCopy {
   display: grid;
   justify-items: center;
   gap: 20px;
-}
-
-.showcaseCopy .status {
-  color: var(--ink-on-dark);
-  border-color: rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.05);
 }
 
 .showcaseCopy h2 {
@@ -433,7 +410,7 @@ h1 {
   line-height: 1.42;
   letter-spacing: 0.004em;
   font-weight: 400;
-  color: var(--secondary-on-dark);
+  color: var(--secondary);
   max-width: 50ch;
   text-wrap: pretty;
 }
@@ -1024,8 +1001,7 @@ html.noJs .scrollReveal {
   }
 
   .showcaseStage {
-    min-height: 86svh;
-    padding: 64px clamp(20px, 6vw, 48px);
+    padding: 58px clamp(20px, 6vw, 48px);
   }
 
   /* Full-width primary CTA (bigger tap target); secondary links sit on the row
