@@ -990,8 +990,11 @@ html.noJs .scrollReveal {
 /* Phones: collapse the nav to wordmark + Contact pill; full-width primary CTA */
 @media (max-width: 600px) {
   .header {
-    height: 48px;
-    padding: 0 18px;
+    height: auto;
+    min-height: 48px;
+    /* Honor viewport-fit=cover so the bar clears the status bar / notch */
+    padding: env(safe-area-inset-top) max(18px, env(safe-area-inset-right)) 0
+      max(18px, env(safe-area-inset-left));
   }
 
   .wordmark {
@@ -1007,8 +1010,34 @@ html.noJs .scrollReveal {
     display: none;
   }
 
-  .ctaRow .btnFill {
+  /* Tighten vertical rhythm — desktop clamp mins stack into ~150px gaps here */
+  .features,
+  .experience,
+  .about {
+    padding-top: 58px;
+    padding-bottom: 58px;
+  }
+
+  .closer {
+    padding-top: 72px;
+    padding-bottom: 60px;
+  }
+
+  .showcaseStage {
+    min-height: 86svh;
+    padding: 64px clamp(20px, 6vw, 48px);
+  }
+
+  /* Full-width primary CTA (bigger tap target); secondary links sit on the row
+     below it, grouped together instead of clinging to the wide pill */
+  .ctaRow .btnFill,
+  .showcaseActions .btnFill {
     flex: 1 1 100%;
+  }
+
+  /* Clear the home indicator */
+  .footer {
+    padding-bottom: max(40px, env(safe-area-inset-bottom));
   }
 }
 
