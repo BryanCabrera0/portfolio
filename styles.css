@@ -1,9 +1,10 @@
 /* Bryan Cabrera — portfolio.
    Design language: Apple marketing (apple.com product pages). SF Pro system
    stack, semibold headlines with tight negative tracking, neutral ink/paper
-   palette with one true-black cinematic act, pill + chevron-link buttons, and
-   a native CSS scroll-driven product reveal. Tokens cross-referenced against
-   Apple's live production CSS; motion gated behind @supports + reduced-motion.
+   palette with one true-black product act, pill + chevron-link buttons, and
+   full-bleed alternating light/dark/grey sections. Tokens cross-referenced
+   against Apple's live production CSS. Motion is a single gentle reveal-on-
+   enter (reduced-motion respected); no scroll-scrubbing or pinning.
    Single file, no build step — also serves the /drft and /shelf legal pages. */
 
 :root {
@@ -63,9 +64,9 @@ body {
   letter-spacing: -0.022em;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  /* overflow-x: clip guards against scaled cinematic elements bleeding past the
-     viewport; clip (not hidden) does NOT create a scroll container, so the
-     sticky header + sticky cinematic stage still pin to the viewport. */
+  /* overflow-x: clip guards against any element bleeding past the viewport;
+     clip (not hidden) does NOT create a scroll container, so the sticky header
+     still pins to the viewport. */
   overflow-x: clip;
 }
 
@@ -369,39 +370,36 @@ h1 {
   70%, 100% { transform: scale(2.8); opacity: 0; }
 }
 
-/* ---------------------------------------------------- Cinematic (DRFT) ----
-   Apple-style pinned product reveal. A tall scroll track holds a sticky stage;
-   the icon scales in and copy reveals line-by-line, scrubbed to scroll via a
-   named view-timeline. Without scroll-driven support (Safari, 2026) or with
-   reduced motion, the section collapses to a static, fully-visible dark panel —
-   no dead scroll, all content present. The tall track + sticky + scrub are
-   ADDED only inside the @supports + no-preference guard below.
-   Refs: MDN animation-timeline / view-timeline; web.dev scroll-driven-animations. */
-.cinematic {
+/* ----------------------------------------------------- Showcase (DRFT) ---
+   Static full-bleed dark feature — Apple's "dark product act," used to make
+   vivid product imagery pop (cf. apple.com camera/performance sections). The
+   black-bodied DRFT icon is spotlit so its squircle edge reads against black.
+   No pin, no scroll-scrub — just a clean centered moment for the flagship app. */
+.showcase {
   position: relative;
   background: var(--bg-dark);
   color: var(--ink-on-dark);
 }
 
-.cinematicStage {
+.showcaseStage {
   min-height: 100svh;
   display: grid;
   place-items: center;
-  padding: clamp(72px, 12vh, 140px) clamp(20px, 6vw, 48px);
+  padding: clamp(80px, 14vh, 160px) clamp(20px, 6vw, 48px);
   /* Spotlight so the black-bodied DRFT icon reads against the black act */
   background: radial-gradient(115% 75% at 50% 34%, #1a1a1d 0%, #070708 52%, #000 100%);
 }
 
-.cinematicInner {
+.showcaseInner {
   display: grid;
   justify-items: center;
   text-align: center;
-  gap: clamp(26px, 4vw, 40px);
+  gap: clamp(28px, 4vw, 44px);
   max-width: 720px;
 }
 
-.cinematicIcon {
-  width: clamp(150px, 26vw, 260px);
+.showcaseIcon {
+  width: clamp(168px, 27vw, 290px);
   height: auto;
   aspect-ratio: 1;
   border-radius: 22.5%;
@@ -410,19 +408,19 @@ h1 {
     0 30px 80px rgba(0, 0, 0, 0.6), 0 0 100px 8px rgba(130, 130, 150, 0.14);
 }
 
-.cinematicCopy {
+.showcaseCopy {
   display: grid;
   justify-items: center;
   gap: 20px;
 }
 
-.cinematicCopy .status {
+.showcaseCopy .status {
   color: var(--ink-on-dark);
   border-color: rgba(255, 255, 255, 0.18);
   background: rgba(255, 255, 255, 0.05);
 }
 
-.cinematicCopy h2 {
+.showcaseCopy h2 {
   font-size: clamp(30px, 5.2vw, 56px);
   font-weight: 600;
   letter-spacing: -0.012em;
@@ -430,7 +428,7 @@ h1 {
   text-wrap: balance;
 }
 
-.cinematicCopy p {
+.showcaseCopy p {
   font-size: clamp(18px, 2.1vw, 22px);
   line-height: 1.42;
   letter-spacing: 0.004em;
@@ -440,7 +438,7 @@ h1 {
   text-wrap: pretty;
 }
 
-.cinematicActions {
+.showcaseActions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -911,98 +909,8 @@ html.noJs .scrollReveal {
   transform: none;
 }
 
-/* -------- Native scroll-driven enhancement (progressive enhancement) ------
-   animation-timeline: view()/scroll(). Gated behind @supports so the
-   IntersectionObserver reveal stays the fallback for Safari, and inside
-   no-preference so reduced-motion users get static content. Only transform +
-   opacity (compositor-only) are animated.
-   https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline */
-@media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) and (animation-timeline: scroll()) {
-    /* Each block scrubs up + fades, linked to scroll position */
-    .scrollReveal {
-      opacity: 1;
-      transform: none;
-      transition: none;
-      animation: scrubUp linear both;
-      animation-timeline: view();
-      animation-range: entry 0% cover 32%;
-    }
-
-    @keyframes scrubUp {
-      from { opacity: 0; transform: translateY(56px) scale(0.98); }
-      to { opacity: 1; transform: none; }
-    }
-
-    /* Photo frames parallax-drift for depth (rotation preserved) */
-    .photoFrame {
-      animation: floatPhoto linear both;
-      animation-timeline: view();
-      animation-range: cover;
-      will-change: transform;
-    }
-
-    @keyframes floatPhoto {
-      from { transform: rotate(var(--rot)) translateY(-30px); }
-      to { transform: rotate(var(--rot)) translateY(30px); }
-    }
-
-    /* Hero gently recedes as you scroll into the page (Apple-style depth) */
-    .heroCopy {
-      animation: heroLift linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0 88vh;
-      will-change: transform, opacity;
-    }
-
-    @keyframes heroLift {
-      to { opacity: 0.45; transform: translateY(-36px) scale(0.985); }
-    }
-
-    /* ---- The signature: DRFT pinned product reveal ---- */
-    .cinematic {
-      height: 320vh; /* scroll track length — longer = slower scrub */
-      view-timeline-name: --drft;
-      view-timeline-axis: block;
-    }
-
-    .cinematicStage {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      min-height: 0;
-    }
-
-    .cinematicIcon {
-      animation: drftIn linear both;
-      animation-timeline: --drft;
-      animation-range: contain 2% contain 26%;
-      will-change: transform, opacity;
-    }
-
-    @keyframes drftIn {
-      from { opacity: 0; transform: scale(0.78) translateY(20px); }
-      to { opacity: 1; transform: none; }
-    }
-
-    /* Copy writes itself in, one block at a time, while the icon stays pinned */
-    .cinematicCopy > * {
-      animation: drftRise linear both;
-      animation-timeline: --drft;
-      will-change: transform, opacity;
-    }
-
-    @keyframes drftRise {
-      from { opacity: 0; transform: translateY(34px); }
-      to { opacity: 1; transform: none; }
-    }
-
-    .cinematicCopy > *:nth-child(1) { animation-range: contain 16% contain 32%; }
-    .cinematicCopy > *:nth-child(2) { animation-range: contain 26% contain 44%; }
-    .cinematicCopy > *:nth-child(3) { animation-range: contain 36% contain 54%; }
-    .cinematicCopy > *:nth-child(4) { animation-range: contain 46% contain 64%; }
-  }
-}
+/* Reveals are a single gentle one-time fade-up on enter (IntersectionObserver,
+   see script.js) — no scroll-scrubbing, pinning, or parallax. */
 
 /* ========================================================== Responsive === */
 @media (max-width: 880px) {
