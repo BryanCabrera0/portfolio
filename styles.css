@@ -3,9 +3,11 @@
 :root {
   --bg: #fdfdfd;
   --ink: #1c1c1c;
-  --secondary: #8c8c8c;
+  --secondary: #737373; /* darkened from #8c8c8c to clear WCAG AA (~4.7:1 on --bg) for body copy */
   --hairline: #ececec;
   --surface: #ffffff;
+  --live: #18a957; /* shipped — the only accent, reserved for status dots */
+  --wip: #cf8a10; /* in progress */
   --radius: 16px;
   --maxw: 1080px;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -283,12 +285,51 @@ h1 {
   order: 2;
 }
 
-.featureNum {
-  font-size: 14px;
+/* Project status — the one place color enters the monochrome system. Encodes
+   true state (shipped vs in progress), replacing the arbitrary 01/02 numbering. */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12.5px;
   font-weight: 800;
-  color: var(--secondary);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
+  color: var(--ink);
+  padding: 6px 14px 6px 12px;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: var(--surface);
+}
+
+.statusDot {
+  position: relative;
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.status--live .statusDot { background: var(--live); }
+.status--wip .statusDot { background: var(--wip); }
+
+/* A live app gets a soft radar ping; a building app holds a steady dot. */
+.status--live .statusDot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--live);
+  animation: ping 2.4s var(--ease-out) infinite;
+}
+
+@keyframes ping {
+  0% { transform: scale(1); opacity: 0.55; }
+  70%, 100% { transform: scale(2.8); opacity: 0; }
+}
+
+.closerStatus {
+  margin-bottom: 18px;
 }
 
 .featureText h2 {
@@ -954,6 +995,10 @@ html.noJs .scrollReveal {
     transform: none;
     filter: none;
     transition: none;
+  }
+
+  .status--live .statusDot::after {
+    animation: none;
   }
 
   .heroPhoto img,
