@@ -3,8 +3,9 @@
    stack, semibold headlines with tight negative tracking, neutral ink/paper
    neutral palette, pill + chevron-link buttons, and full-bleed alternating
    light/grey sections. Tokens cross-referenced against Apple's live production
-   CSS. Motion is a single gentle reveal-on-enter (reduced-motion respected);
-   no scroll-scrubbing or pinning.
+   CSS. Motion is Apple-native only: a gentle fade-up on load and on scroll-
+   into-view, plus hover color changes on buttons/links — no blur reveals,
+   tilts, parallax, Ken Burns, or pulsing dots. Reduced-motion respected.
    Single file, no build step — also serves the /drft and /shelf legal pages. */
 
 :root {
@@ -142,13 +143,12 @@ a {
   background: var(--cta);
   padding: 7px 15px;
   border-radius: var(--radius-pill);
-  transition: background 0.15s ease, transform 0.12s ease;
+  transition: background 0.2s ease;
 }
 
 .navPill:hover {
   background: var(--cta-hover);
   color: #fff;
-  transform: translateY(-1px);
 }
 
 /* ---------------------------------------------------------------- Buttons */
@@ -163,17 +163,12 @@ a {
   letter-spacing: -0.01em;
   padding: 12px 22px;
   border-radius: var(--radius-pill);
-  transition: background 0.15s ease, transform 0.12s ease;
+  transition: background 0.2s ease;
 }
 
 .btnFill:hover {
   background: var(--cta-hover);
   color: #fff;
-  transform: translateY(-1px);
-}
-
-.btnFill:active {
-  transform: translateY(0);
 }
 
 /* Apple chevron text-link — "GitHub ›" */
@@ -192,17 +187,12 @@ a {
   content: "\203A"; /* › */
   font-size: 1.05em;
   line-height: 1;
-  transition: transform 0.18s var(--ease-out);
 }
 
 .btnLink:hover {
   color: var(--link);
   text-decoration: underline;
   text-underline-offset: 3px;
-}
-
-.btnLink:hover::after {
-  transform: translateX(3px);
 }
 
 .btnGhost {
@@ -217,12 +207,11 @@ a {
   border: 1px solid var(--hairline);
   border-radius: var(--radius-pill);
   background: var(--bg);
-  transition: border-color 0.15s ease, transform 0.12s ease;
+  transition: border-color 0.2s ease;
 }
 
 .btnGhost:hover {
   border-color: var(--ink);
-  transform: translateY(-1px);
 }
 
 .ctaRow {
@@ -280,9 +269,8 @@ h1 {
   font-weight: 400;
 }
 
-/* Hero portrait */
+/* Hero portrait — straight in a rounded frame (no tilt, no Ken Burns zoom) */
 .heroPhoto {
-  --rot: 1.4deg;
   justify-self: center;
   width: 100%;
   max-width: clamp(280px, 32vw, 380px);
@@ -293,13 +281,6 @@ h1 {
   border-radius: 24px;
   border: 1px solid var(--hairline);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
-  transform: rotate(var(--rot));
-  transition: transform 0.5s var(--ease-out);
-}
-
-.heroPhoto:hover .photoFrame,
-.aboutPhoto:hover .photoFrame {
-  transform: rotate(0deg);
 }
 
 .heroPhoto img,
@@ -307,13 +288,6 @@ h1 {
   display: block;
   width: 100%;
   height: auto;
-  animation: kenBurns 26s ease-in-out infinite alternate;
-  will-change: transform;
-}
-
-@keyframes kenBurns {
-  from { transform: scale(1.04); transform-origin: 28% 30%; }
-  to { transform: scale(1.12); transform-origin: 72% 66%; }
 }
 
 /* ---------------------------------------------------------------- Status */
@@ -343,20 +317,6 @@ h1 {
 
 .status--live .statusDot { background: var(--live); }
 .status--wip .statusDot { background: var(--wip); }
-
-.status--live .statusDot::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: var(--live);
-  animation: ping 2.4s var(--ease-out) infinite;
-}
-
-@keyframes ping {
-  0% { transform: scale(1); opacity: 0.55; }
-  70%, 100% { transform: scale(2.8); opacity: 0; }
-}
 
 /* ----------------------------------------------------- Showcase (DRFT) ---
    Static light feature on Apple's grey (#f5f5f7) — the flagship app gets a
@@ -478,21 +438,19 @@ h1 {
   font-size: 15px;
   padding: 9px 18px;
   border-radius: var(--radius-pill);
-  transition: background 0.15s ease, transform 0.12s ease;
+  transition: background 0.2s ease;
 }
 
 .btnSmall:hover {
   background: var(--cta-hover);
   color: #fff;
-  transform: translateY(-1px);
 }
 
-/* App icon tile — iOS-style squircle with App Store-style 3D tilt */
+/* App icon tile — iOS-style squircle (static) */
 .appIcon {
   width: 100%;
   max-width: clamp(180px, 24vw, 260px);
   margin: 0 auto;
-  perspective: 820px;
 }
 
 .appIcon img {
@@ -503,16 +461,6 @@ h1 {
   object-fit: cover;
   border-radius: 22.5%;
   box-shadow: 0 18px 44px rgba(0, 0, 0, 0.12), 0 3px 10px rgba(0, 0, 0, 0.06);
-  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
-  will-change: transform;
-}
-
-.appIcon img:hover {
-  box-shadow: 0 26px 56px rgba(0, 0, 0, 0.16), 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.pointer-fine .appIcon img {
-  transition: transform 0.18s var(--ease-out), box-shadow 0.3s var(--ease-out);
 }
 
 /* Per-app legal links on the Shelf card */
@@ -626,7 +574,6 @@ h1 {
 }
 
 .aboutPhoto {
-  --rot: -1.6deg;
   max-width: clamp(240px, 28vw, 340px);
   width: 100%;
   margin: 0 auto;
@@ -849,25 +796,6 @@ h1 {
   animation: reveal 0.75s var(--ease-out) both;
 }
 
-/* Hero headline — words blur up into place, staggered (JS-split) */
-.hero h1 .word {
-  display: inline-block;
-  vertical-align: top;
-}
-
-.hero h1 .wordInner {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(0.42em);
-  filter: blur(12px);
-  animation: wordRise 1s var(--ease-out) forwards;
-  animation-delay: calc(var(--i) * 0.08s + 0.1s);
-}
-
-@keyframes wordRise {
-  to { opacity: 1; transform: none; filter: blur(0); }
-}
-
 /* Section reveal — IntersectionObserver fallback (universal floor) */
 .scrollReveal {
   opacity: 0;
@@ -1034,31 +962,11 @@ html.noJs .scrollReveal {
     transition: none;
   }
 
-  .hero h1 .wordInner {
-    animation: none;
-    opacity: 1;
-    transform: none;
-    filter: none;
-  }
-
-  .heroPhoto img,
-  .aboutPhoto img {
-    animation: none;
-    transform: none;
-  }
-
-  .status--live .statusDot::after {
-    animation: none;
-  }
-
-  .heroPhoto,
-  .aboutPhoto,
-  .appIcon img,
+  .headerNav a,
+  .navPill,
   .btnFill,
   .btnGhost,
-  .btnSmall,
-  .navPill,
-  .btnLink::after {
+  .btnSmall {
     transition: none;
   }
 }
