@@ -130,7 +130,7 @@ a {
   transition: color 0.15s ease;
 }
 
-.headerNav a:hover {
+.headerNav a:not(.navPill):hover {
   color: var(--ink);
 }
 
