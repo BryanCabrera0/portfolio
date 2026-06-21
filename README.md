@@ -20,7 +20,7 @@ tools/        port-legal.mjs — one-off porter for the DRFT legal content
 vercel.json   Clean URLs + immutable asset caching
 ```
 
-Future apps (Shelf, Bounty) get their own folder with the same three pages.
+Future apps (Bounty) get their own folder with the same three pages.
 
 ## Develop
 
