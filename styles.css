@@ -34,6 +34,52 @@
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Dark mode — Apple's dark marketing palette (#000 page, #1d1d1f sections,
+   #2997ff links). Tokens are centralized, so the whole site re-themes by
+   overriding them here; only a handful of components with hardcoded colors or
+   light-on-light contrast need explicit fixes below. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg: #000000;
+    --bg-alt: #1d1d1f;       /* Apple's dark grey section */
+    --bg-tint: #161617;
+    --ink: #f5f5f7;
+    --secondary: #a1a1a6;    /* AA on both #000 and #1d1d1f */
+    --tertiary: #a1a1a6;
+    --hairline: #424245;     /* Apple's dark hairline */
+    --link: #2997ff;         /* Apple's dark-mode blue */
+    --cta: #0071e3;
+    --cta-hover: #0077ed;
+  }
+
+  /* Frosted header → dark glass */
+  .header {
+    background: rgba(0, 0, 0, 0.72);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Skip link: light chip / dark text now that --ink is light */
+  .skipLink {
+    color: var(--bg);
+  }
+
+  /* Elevation reads via deeper shadow on black, not a faint blur */
+  .photoFrame {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .showcaseIcon {
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Legal body copy uses a hardcoded ink elsewhere — lift it for dark */
+  .legal p,
+  .legal li {
+    color: #d2d2d7;
+  }
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
