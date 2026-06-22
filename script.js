@@ -4,21 +4,56 @@
 document.documentElement.classList.remove("noJs");
 
 const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const targets = document.querySelectorAll(".scrollReveal");
+const hasIO = "IntersectionObserver" in window;
+const reveals = document.querySelectorAll(".scrollReveal, .revealGroup");
 
-if (reduce || !("IntersectionObserver" in window)) {
-  targets.forEach((el) => el.classList.add("in"));
+if (reduce || !hasIO) {
+  reveals.forEach((el) => el.classList.add("in"));
 } else {
-  const observer = new IntersectionObserver(
+  const revealObserver = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
         if (entry.isIntersecting) {
           entry.target.classList.add("in");
-          observer.unobserve(entry.target);
+          revealObserver.unobserve(entry.target);
         }
       }
     },
     { rootMargin: "0px 0px -10% 0px", threshold: 0.1 }
   );
-  targets.forEach((el) => observer.observe(el));
+  reveals.forEach((el) => revealObserver.observe(el));
+}
+
+// Scroll-spy: highlight the nav link for the section currently centered in the
+// viewport (cf. Apple product sub-nav). This is state, not motion, so it runs
+// regardless of prefers-reduced-motion; it only needs IntersectionObserver.
+if (hasIO) {
+  const links = [
+    ...document.querySelectorAll('.headerNav a[href^="#"]'),
+  ].filter((a) => !a.classList.contains("navPill"));
+
+  const linkFor = new Map();
+  for (const a of links) {
+    const section = document.getElementById(a.getAttribute("href").slice(1));
+    if (section) linkFor.set(section, a);
+  }
+
+  if (linkFor.size) {
+    const spy = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const active = linkFor.get(entry.target);
+            links.forEach((a) => a.classList.toggle("active", a === active));
+          }
+        }
+      },
+      { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
+    );
+    linkFor.forEach((_, section) => spy.observe(section));
+    // Observe the hero too: it maps to no link, so centering it clears the
+    // active state instead of leaving a stale highlight at the top.
+    const hero = document.getElementById("top");
+    if (hero) spy.observe(hero);
+  }
 }

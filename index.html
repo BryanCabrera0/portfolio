@@ -58,7 +58,7 @@
 
     <main>
       <header class="header">
-        <span class="wordmark">Bryan Cabrera</span>
+        <a href="#top" class="wordmark wordmarkLink">Bryan Cabrera</a>
         <nav class="headerNav" aria-label="Primary">
           <a href="#work">Work</a>
           <a href="#experience">Experience</a>
@@ -68,7 +68,7 @@
       </header>
 
       <!-- Hero -->
-      <section class="hero">
+      <section class="hero" id="top">
         <div class="heroCopy">
           <h1 class="reveal" style="animation-delay: 0.05s">I design and build native apps.</h1>
           <p class="lede reveal" style="animation-delay: 0.2s">
@@ -102,7 +102,7 @@
       <!-- DRFT — static light product feature (the flagship moment) -->
       <section class="showcase" id="work" aria-labelledby="drftTitle">
         <div class="showcaseStage">
-          <div class="showcaseInner scrollReveal">
+          <div class="showcaseInner revealGroup">
             <img
               class="showcaseIcon"
               src="/assets/drft-icon.png?v=2"
@@ -130,7 +130,7 @@
       </section>
 
       <!-- Experience -->
-      <section class="experience scrollReveal" id="experience">
+      <section class="experience revealGroup" id="experience">
         <span class="eyebrow">Experience</span>
         <h2 class="sectionTitle">Where I've worked.</h2>
         <ol class="xpList">
@@ -170,8 +170,8 @@
       </section>
 
       <!-- About -->
-      <section class="aboutSection scrollReveal" id="about">
-        <div class="about">
+      <section class="aboutSection" id="about">
+        <div class="about revealGroup">
         <div class="aboutPhoto">
           <div class="photoFrame">
             <img
@@ -204,11 +204,12 @@
       </section>
 
       <!-- Closer -->
-      <section class="closer scrollReveal" id="contact">
+      <section class="closer revealGroup" id="contact">
         <h2>Ready when you are.</h2>
-        <p class="lede ledeCenter">
-          Building and shipping software people love.
-        </p>
+        <blockquote class="closerQuote">
+          <p>You can’t look at the competition and say you’re going to do it better. You have to look at the competition and say you’re going to do it differently.</p>
+          <cite>— Steve Jobs</cite>
+        </blockquote>
         <div class="ctaRow ctaRowCenter">
           <a class="btnFill" href="mailto:bryancw2020@gmail.com">Email me</a>
           <a class="btnLink" href="https://github.com/BryanCabrera0" target="_blank" rel="noreferrer">GitHub</a>
