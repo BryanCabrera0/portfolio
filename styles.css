@@ -362,11 +362,19 @@ h1 {
 
 .showcaseActions {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+/* Terms · Privacy · Support — centered row beneath the Download CTA */
+.showcaseLinks {
+  display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 8px 18px;
-  margin-top: 4px;
 }
 
 /* ---------------------------------------------------------------- Eyebrow */
@@ -778,7 +786,10 @@ html.noJs .revealGroup > * {
     justify-content: center;
   }
 
+  /* Portrait sits above the headline in the stacked layout (DOM order keeps
+     the h1 first for screen readers; order only changes the visual stack) */
   .heroPhoto {
+    order: -1;
     max-width: clamp(240px, 62vw, 320px);
   }
 
@@ -858,9 +869,17 @@ html.noJs .revealGroup > * {
 
   /* Full-width primary CTA (bigger tap target); secondary links sit on the row
      below it, grouped together instead of clinging to the wide pill */
-  .ctaRow .btnFill,
-  .showcaseActions .btnFill {
+  .ctaRow .btnFill {
     flex: 1 1 100%;
+  }
+
+  /* Download stacks full-width above the centered Terms/Privacy/Support row */
+  .showcaseActions {
+    width: 100%;
+  }
+
+  .showcaseActions .btnFill {
+    width: 100%;
   }
 
   /* Clear the home indicator */
