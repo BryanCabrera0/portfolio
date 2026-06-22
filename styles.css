@@ -577,6 +577,26 @@ h1 {
   color: var(--secondary);
 }
 
+/* Embedded contact form (Tally). Light card in both themes so the form's own
+   text stays legible — its theme isn't controllable from the embed URL. */
+.contactForm {
+  width: 100%;
+  max-width: 540px;
+  margin: 8px auto 0;
+  padding: clamp(18px, 3.5vw, 30px) clamp(18px, 3.5vw, 32px);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 22px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  text-align: left;
+}
+
+.contactForm iframe {
+  display: block;
+  width: 100%;
+  border: 0;
+}
+
 .ctaRowCenter {
   justify-content: center;
 }
@@ -758,6 +778,7 @@ html.noJs .scrollReveal {
 .revealGroup.in > *:nth-child(2) { transition-delay: 0.08s; }
 .revealGroup.in > *:nth-child(3) { transition-delay: 0.16s; }
 .revealGroup.in > *:nth-child(4) { transition-delay: 0.24s; }
+.revealGroup.in > *:nth-child(5) { transition-delay: 0.32s; }
 
 html.noJs .revealGroup > * {
   opacity: 1;
@@ -972,5 +993,17 @@ html.noJs .revealGroup > * {
   .legal p,
   .legal li {
     color: #d2d2d7;
+  }
+
+  /* Tally form is fixed light-theme; invert it to read as dark. hue-rotate
+     keeps the blue Submit button roughly blue rather than orange. */
+  .contactForm {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: none;
+  }
+
+  .contactForm iframe {
+    filter: invert(1) hue-rotate(180deg);
   }
 }
