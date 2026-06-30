@@ -32,7 +32,7 @@
       <article class="legal">
         <span class="eyebrow">DRFT · Privacy</span>
         <h1>Privacy Policy</h1>
-        <p class="updated">LAST UPDATED: 2026-06-11</p>
+        <p class="updated">LAST UPDATED: 2026-06-30</p>
         <div class="legalBody">
 
           <section>
@@ -57,7 +57,7 @@
                   <strong>No ads and no product analytics SDKs in the app</strong> &mdash; no advertising and no Google Mobile Ads, and no Firebase, Mixpanel, or similar, on any platform or tier.
                 </li>
                 <li>
-                  Our website logs anonymized page views via Vercel Analytics &mdash; no cookies, no personal data.
+                  Our website uses no analytics, no cookies, and no third-party trackers.
                 </li>
               </ul>
             </div>
@@ -70,7 +70,7 @@
               DRFT does not maintain user accounts or a server-side database of your personal data. There is no sign-up, no password, and no DRFT profile. Your data lives in 2 places only: on your device (SwiftData, local), and for Pro subscribers, in your own private iCloud database (Apple CloudKit &mdash; encrypted at rest by Apple, scoped exclusively to your Apple ID).
             </p>
             <p>
-              The only DRFT-server-side data is a technical push-routing record (your APNs device token keyed by an opaque iCloud user record ID and DRFT device ID) stored with a 180-day rolling TTL. See <a href="#section-7">section 7</a> for details.
+              DRFT keeps no server-side database. An identifier reaches our server only per request: when you ask for an AI summary, your opaque iCloud user record ID is sent to our Cloudflare proxy and hashed into a temporary rate-limit key &mdash; it is not stored. Notifications are delivered entirely on-device; see <a href="#section-7">section 7</a>.
             </p>
           </section>
           <section id="section-2">
@@ -124,14 +124,14 @@
                 Transcripts sent to OpenAI are governed by <a href="https://openai.com/policies/api-data-usage-policies/" target="_blank" rel="noreferrer" target="_blank" rel="noopener">OpenAI's API data usage policies</a>. OpenAI states that API inputs and outputs are not used to train its models by default unless the API customer opts in. We avoid sending personal identifiers to the API. Wake words and the surrounding transcript snippets are visible to OpenAI's systems during processing.
               </li>
               <li>
-                If the OpenAI API is unavailable, DRFT may fall back to Apple's on-device Foundation Models (<strong>Apple Intelligence</strong>) to generate the fallback summary locally after the cloud attempt fails. In normal mode, that earlier cloud attempt may have transmitted transcript text through the Cloudflare proxy and OpenAI; the no-server transcript guarantee applies only while <strong>Private Mode</strong> is active.
+                If the OpenAI API is unavailable, DRFT may fall back to Apple's on-device Foundation Models (<strong>Apple Intelligence</strong>) to generate the fallback summary locally after the cloud attempt fails. In normal mode, that earlier cloud attempt may have transmitted transcript text through the Cloudflare proxy and OpenAI; the no-server transcript guarantee applies only while <strong>On-Device Summaries</strong> is active.
               </li>
               <li>
-                <strong>Private Mode (Pro).</strong> Pro users on Apple Intelligence&ndash;capable devices can turn on <strong>Private Mode</strong> in Settings when on-device summaries are currently available. While Private Mode is active, summaries are generated entirely on-device using Apple's Foundation Models and <strong>no transcript text is sent to the Cloudflare proxy or OpenAI</strong> &mdash; the cloud path is bypassed for those summaries, not just when OpenAI is unreachable.
+                <strong>On-Device Summaries (Pro).</strong> Pro users on Apple Intelligence&ndash;capable devices can turn on <strong>On-Device Summaries</strong> in Settings when on-device generation is available. While it is on, summaries are generated entirely on-device using Apple's Foundation Models and <strong>no transcript text is sent to the Cloudflare proxy or OpenAI</strong> &mdash; the cloud path is bypassed for those summaries, not just when OpenAI is unreachable.
               </li>
             </ul>
             <p>
-              <strong>Who can use AI summaries:</strong> AI summaries are a Pro feature. Free users see a Go Pro prompt on locked summaries. If you prefer never to send transcript text off-device, use <strong>Private Mode</strong> while it is active, or disable AI summaries.
+              <strong>Who can use AI summaries:</strong> AI summaries are a Pro feature. Free users see a Go Pro prompt on locked summaries. If you prefer never to send transcript text off-device, use <strong>On-Device Summaries</strong> while it is available, or disable AI summaries.
             </p>
           </section>
           <section>
@@ -156,7 +156,7 @@
               This data stays on your device unless you opt into iCloud sync (Pro only, see section 8).
             </p>
             <p>
-              <strong>iCloud Key-Value Storage.</strong> DRFT also stores your first and last name (entered during onboarding) in Apple's iCloud Key-Value Storage. This is used to personalize feedback submissions and syncs automatically across your own devices. This data persists across app deletion per Apple's NSUbiquitousKeyValueStore semantics; to clear it, use <strong>Settings &rarr; Delete All Data</strong> within the App before deleting it.
+              <strong>iCloud Key-Value Storage.</strong> DRFT also stores your first and last name (entered during onboarding) in Apple's iCloud Key-Value Storage. Your name seeds your default wake words and keeps your identity in sync across your own devices. This data persists across app deletion per Apple's NSUbiquitousKeyValueStore semantics; to clear it, use <strong>Settings &rarr; Delete All Data</strong> within the App before deleting it.
             </p>
           </section>
           <section>
@@ -171,25 +171,21 @@
               <li><strong>Other User Content</strong> &mdash; Wake words and wake-word profiles you create; stored locally and (Pro only) synced to your private CloudKit zone.</li>
               <li><strong>Product Interaction</strong> &mdash; Detection events, session activity, and achievement progress; stored locally for the in-app gamification system.</li>
               <li><strong>Purchase History</strong> &mdash; Pro subscription status managed by Apple StoreKit; DRFT reads entitlement state only, never payment instrument details.</li>
-              <li><strong>User ID</strong> &mdash; Opaque iCloud user record ID used to key the push-routing record in Cloudflare Workers KV and to pair devices for relay.</li>
-              <li><strong>Device ID</strong> &mdash; DRFT's push-routing device key is a fixed platform label (<code>iphone</code> or <code>mac</code>) used alongside the User ID to locate the registered APNs token and confirm a registered DRFT install.</li>
+              <li><strong>User ID</strong> &mdash; Opaque iCloud user record ID sent with AI-summary requests so our Cloudflare proxy can rate-limit per user. It is hashed server-side and not stored.</li>
             </ul>
           </section>
           <section id="section-7">
             <h2>
-              7. Push notifications &amp; relay mode
+              7. Notifications
             </h2>
             <p>
-              DRFT sends all notifications through Apple Push Notification service (APNs) via our Cloudflare Worker relay. There are no local notifications. If you revoke notification permission, no push is delivered.
+              DRFT notifications are <strong>on-device local notifications</strong> (Apple's <code>UNUserNotificationCenter</code>). They are scheduled on the same device that detected the wake word &mdash; there is no Apple Push Notification service (APNs) round-trip and no server relay. If you revoke notification permission, no notification is shown; DRFT still surfaces the in-app detection sheet while the app is open.
             </p>
             <p>
-              <strong>What push payloads contain.</strong> Detection push payloads contain only a generic title (&ldquo;&lt;KEYWORD&gt; detected&rdquo;), a generic body (&ldquo;Open DRFT to view summary.&rdquo;), and opaque identifiers (keyword name and detection ID). <strong>Transcripts and AI summaries are never sent over APNs.</strong> When you open a detection notification, the app loads the full moment (including any summary) from local app storage, or from your private CloudKit container when Pro sync is active.
+              <strong>What a notification contains.</strong> A detection notification carries only a generic title (&ldquo;&lt;KEYWORD&gt; Detected&rdquo;), a generic body (&ldquo;Open DRFT to view summary.&rdquo;), and opaque identifiers (keyword name and detection ID); achievement notifications carry only an achievement identifier. <strong>Transcripts and AI summaries are never placed in a notification.</strong> When you open a detection notification, the app loads the full moment (including any summary) from local app storage, or from your private CloudKit container when Pro sync is active.
             </p>
             <p>
-              <strong>Mac &rarr; iPhone relay (Pro only).</strong> Pro users can link their Mac and iPhone so detections from Mac system audio are relayed to the iPhone via APNs through our Cloudflare Worker.
-            </p>
-            <p>
-              <strong>Device token storage.</strong> When you enable notifications, DRFT transmits your Apple-issued APNs device token to our Cloudflare Worker. Tokens are stored in Cloudflare Workers KV with a rolling <strong>180-day TTL</strong> and automatically expire if the device stops checking in. Each entry is keyed by <strong>{iCloud user record ID}:{device ID}</strong>. The iCloud user record ID is an opaque Apple identifier, not your Apple ID email or name; the device ID is DRFT's fixed <code>iphone</code> or <code>mac</code> routing label. Apple issues a distinct opaque iCloud user ID per app; DRFT's ID for you cannot be cross-referenced with any other app. We use these values solely to (1) pair your Mac and iPhone under the same iCloud account for cross-device relay and (2) confirm the caller is a registered DRFT install before forwarding transcript text to OpenAI through DRFT's Cloudflare proxy.
+              <strong>No device tokens, no push relay.</strong> Because notifications are local, DRFT does not register for remote push, never transmits an APNs device token to any server, and does not relay detections between your Mac and iPhone. A detection on your Mac notifies your Mac; a detection on your iPhone notifies your iPhone. Your wake words and saved moments still sync across devices through iCloud (Pro, see section 8).
             </p>
           </section>
           <section>
@@ -208,7 +204,7 @@
               9. Feedback submissions
             </h2>
             <p>
-              When you tap <strong>Send Feedback</strong> (Settings &rarr; Feedback), DRFT opens your device's default email client with a pre-addressed message to <a href="mailto:support@drft.ing">support@drft.ing</a> via a standard <code>mailto:</code> link. Your email is sent entirely through your own mail app &mdash; DRFT does not use a transactional email service or relay your message through any third-party provider. By default, the draft is pre-filled with the first and last name you entered during onboarding; you may edit or remove these before sending if you want the submission to be anonymous. We retain feedback emails in our support inbox only as long as needed to respond to you.
+              When you tap <strong>Feedback</strong> (Settings &rarr; Feedback), DRFT opens a web feedback form hosted by <strong>Tally</strong> (<a href="https://tally.so" target="_blank" rel="noopener">tally.so</a>) in your browser. What you submit goes to Tally and is governed by <a href="https://tally.so/help/privacy-policy" target="_blank" rel="noopener">Tally's privacy policy</a>; DRFT does not pre-fill your name or any personal data into the form &mdash; only what you choose to type is included. We review submissions to respond to you and improve DRFT. For privacy or legal questions, you can also email us directly (see Contact below).
             </p>
           </section>
           <section>
@@ -216,7 +212,7 @@
               10. Analytics
             </h2>
             <p>
-              <strong>Website.</strong> Vercel Analytics collects anonymized page views on drft.ing. No cookies. No personal data. The analytics script is deferred and does not fire until after page load.
+              <strong>Website.</strong> Our website (bryancabrera.xyz) uses no analytics, no cookies, and no third-party trackers.
             </p>
             <p>
               <strong>App.</strong> DRFT does not use third-party product analytics SDKs. There is no Firebase, Mixpanel, Amplitude, Segment, PostHog, or equivalent in the iOS or macOS app. Usage data (detection counts, session duration, achievement progress) is stored locally on your device for the in-app gamification system and is not transmitted to any server.
@@ -244,11 +240,7 @@
               </div>
               <div>
                 <span>Cloudflare Workers</span>
-                <span>DRFT proxy for AI summary requests and push relay. No transcript or response body content is logged in normal operation.</span>
-              </div>
-              <div>
-                <span>Cloudflare Workers KV</span>
-                <span>APNs device token + opaque iCloud user record ID, 180-day rolling TTL.</span>
+                <span>DRFT proxy for AI summary requests (<code>/summarize</code>). No transcript or response body content is logged in normal operation.</span>
               </div>
               <div>
                 <span>Apple CloudKit (Pro sync)</span>
@@ -259,16 +251,16 @@
                 <span>First and last name (all tiers). Syncs across user's own devices. Persists across app deletion.</span>
               </div>
               <div>
-                <span>Apple APNs</span>
-                <span>Push detection alerts (Pro, Mac &rarr; iPhone relay) and achievement notifications (all tiers, same device). No transcript content in payloads.</span>
-              </div>
-              <div>
                 <span>Apple StoreKit</span>
                 <span>Subscription status (managed entirely by Apple). DRFT never sees payment instrument.</span>
               </div>
               <div>
-                <span>Vercel / Vercel Analytics</span>
-                <span>Promo site hosting (drft.ing) + anonymized page views. No cookies.</span>
+                <span>Vercel</span>
+                <span>Website hosting (bryancabrera.xyz). No analytics, no cookies.</span>
+              </div>
+              <div>
+                <span>Tally</span>
+                <span>Web feedback form (tally.so) opened from Settings &rarr; Feedback. Submissions governed by Tally's privacy policy.</span>
               </div>
             </div>
             <p>
@@ -280,7 +272,7 @@
               13. Children's privacy
             </h2>
             <p>
-              DRFT is not directed at children under the age of 13. We do not knowingly collect personal information from children. If you believe a child has provided us with data, contact us at <a href="mailto:support@drft.ing">support@drft.ing</a> and we will delete it promptly.
+              DRFT is not directed at children under the age of 13. We do not knowingly collect personal information from children. If you believe a child has provided us with data, contact us at <a href="mailto:nohbodie@icloud.com">nohbodie@icloud.com</a> and we will delete it promptly.
             </p>
             <p>
               <strong>Age verification (Texas SB 2420 &mdash; watch item).</strong> DRFT includes support for Apple's Declared Age Range API, which allows the OS to provide a coarse age band (e.g., "13&ndash;17") without revealing a specific age or identity. When this API becomes available and enabled, DRFT may use the age band solely to gate age-sensitive features on-device. We do not store or transmit the age band. This feature is currently log-only; the corresponding Apple Developer entitlement has not yet been enabled.
@@ -291,7 +283,7 @@
               14. Your rights
             </h2>
             <p>
-              Because virtually all DRFT data lives on your device, you have direct control. Deleting the app removes all local data. You can also use <strong>Settings &rarr; Delete All Data</strong> to wipe everything (Missed Moments, wake words, preferences, CloudKit zone if sync is active, push relay registration, and iCloud KV user name) in 1 action. The 1 item <em>not</em> deleted is your StoreKit Pro entitlement, which Apple owns.
+              Because virtually all DRFT data lives on your device, you have direct control. Deleting the app removes all local data. You can also use <strong>Settings &rarr; Delete All Data</strong> to wipe everything (Missed Moments, wake words, preferences, CloudKit zone if sync is active, and iCloud KV user name) in 1 action. The 1 item <em>not</em> deleted is your StoreKit Pro entitlement, which Apple owns.
             </p>
             <p>
               <strong>GDPR (EEA, UK, Switzerland).</strong> If you are in the EEA, UK, or Switzerland, you have the following rights regarding any personal data DRFT processes:
@@ -307,14 +299,14 @@
               <li><strong>Lodge a complaint</strong> &mdash; with your national supervisory authority.</li>
             </ul>
             <p>
-              <strong>Lawful basis per data category:</strong> Push routing data (APNs token + opaque iCloud ID) &mdash; contract performance (delivering the notification service you enabled). Transcript text forwarded for AI summaries &mdash; legitimate interest (providing the feature you requested) with the ability to opt out at any time. Name in iCloud KV &mdash; contract performance (personalizing your feedback submissions).
+              <strong>Lawful basis per data category:</strong> Transcript text forwarded for AI summaries &mdash; legitimate interest (providing the feature you requested) with the ability to opt out at any time. Opaque iCloud user record ID sent with summary requests &mdash; legitimate interest (rate-limiting and abuse prevention for the summary service). Name in iCloud KV &mdash; contract performance (seeding your default wake words and syncing your identity across your devices).
             </p>
             <p>
-              <!-- OWNER REVIEW: A personal Gmail address was previously listed as a secondary contact for rights requests. Replaced with support@drft.ing. If a separate privacy@ alias is desired (e.g., privacy@drft.ing), the owner should create it and update this section. -->
-              We will respond to rights requests within 30 days. To submit a request, email <a href="mailto:support@drft.ing">support@drft.ing</a>.
+              <!-- OWNER REVIEW: A personal Gmail address was previously listed as a secondary contact for rights requests. Replaced with nohbodie@icloud.com. If a separate privacy@ alias is desired (e.g., privacy@bryancabrera.xyz), the owner should create it and update this section. -->
+              We will respond to rights requests within 30 days. To submit a request, email <a href="mailto:nohbodie@icloud.com">nohbodie@icloud.com</a>.
             </p>
             <p>
-              <strong>CCPA / CPRA (California residents).</strong> We do not sell or share personal information. DRFT serves no ads and uses no advertising identifiers or cross-context behavioral advertising. California residents have the right to know what personal information is collected, to delete it, to correct it, to limit use of sensitive PI, and to non-discrimination for exercising these rights. Categories of PI we collect: identifiers (opaque iCloud user record ID and device label, used for push routing); name (iCloud KV, if provided during onboarding).
+              <strong>CCPA / CPRA (California residents).</strong> We do not sell or share personal information. DRFT serves no ads and uses no advertising identifiers or cross-context behavioral advertising. California residents have the right to know what personal information is collected, to delete it, to correct it, to limit use of sensitive PI, and to non-discrimination for exercising these rights. Categories of PI we collect: identifiers (opaque iCloud user record ID, sent with AI-summary requests for rate limiting); name (iCloud KV, if provided during onboarding).
             </p>
           </section>
           <section>
@@ -325,7 +317,7 @@
               Audio is ephemeral &mdash; processed in real time and discarded immediately. No audio is ever written to disk or transmitted. Saved Moments (detection metadata and text) persist on your device until you delete them. Use <strong>Settings &rarr; Delete All Data</strong> to erase everything at once.
             </p>
             <p>
-              On our servers, the only data we retain is the push-routing record in Cloudflare Workers KV: your APNs device token paired with your opaque iCloud user record ID and DRFT device ID, with a rolling 180-day TTL that expires automatically if your device stops checking in. Transcript text sent for AI summaries is not logged or stored by our Worker. Feedback submissions are retained in our support inbox only as long as needed to respond to you.
+              On our servers, we retain no personal data. Our Cloudflare proxy does not log or store transcript text or AI-summary content; the opaque iCloud user record ID sent with a summary request is hashed into a temporary rate-limit key and is not persisted. Feedback you submit through the Tally form is retained by Tally and reviewed by us only as long as needed to respond and improve DRFT.
             </p>
           </section>
           <section>
@@ -349,7 +341,7 @@
               18. Contact
             </h2>
             <p>
-              Questions, concerns, or rights requests? Reach out at <a href="mailto:support@drft.ing">support@drft.ing</a>. We respond within 30 days.
+              Questions, concerns, or rights requests? Reach out at <a href="mailto:nohbodie@icloud.com">nohbodie@icloud.com</a>. We respond within 30 days.
             </p>
             <p>
               See also: <a href="/drft/terms/">Terms of Service</a>.
@@ -364,7 +356,7 @@
         <span class="footerDot">·</span>
         <span><a href="/">Home</a></span>
         <span class="footerDot">·</span>
-        <span><a href="mailto:support@drft.ing">support@drft.ing</a></span>
+        <span><a href="mailto:nohbodie@icloud.com">nohbodie@icloud.com</a></span>
       </footer>
     </main>
   </body>

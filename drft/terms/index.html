@@ -32,7 +32,7 @@
       <article class="legal">
         <span class="eyebrow">DRFT · Terms</span>
         <h1>Terms of Service</h1>
-        <p class="updated">LAST UPDATED: 2026-06-11</p>
+        <p class="updated">LAST UPDATED: 2026-06-30</p>
         <div class="legalBody">
 
           <section>
@@ -87,10 +87,10 @@
             </p>
             <ul>
               <li>
-                <strong>Free tier</strong> &mdash; Up to 10 saved moments; 2 default wake words + 1 custom wake word; push notifications (same device); iPhone and Mac support. DRFT is ad-free on every platform and tier.
+                <strong>Free tier</strong> &mdash; Up to 10 saved moments; 2 default wake words + 1 custom wake word; on-device notifications (same device); iPhone and Mac support. DRFT is ad-free on every platform and tier.
               </li>
               <li>
-                <strong>Pro tier</strong> &mdash; Up to 50 saved moments; 2 default wake words + <strong>up to 3 custom wake words</strong> (per profile); <strong>up to 3 wake-word profiles</strong>; AI summaries; Mac &rarr; iPhone detection relay; iCloud sync across your devices. Pricing: <strong>$0.99/month</strong> or <strong>$9.99/year</strong>. The <strong>7-day free trial applies to the yearly plan only</strong>.
+                <strong>Pro tier</strong> &mdash; Up to 50 saved moments; 2 default wake words + <strong>up to 3 custom wake words</strong> (per profile); <strong>up to 3 wake-word profiles</strong>; AI summaries (including on-device summaries on Apple Intelligence&ndash;capable devices); iCloud sync across your devices. Pricing: <strong>$0.99/month</strong> or <strong>$9.99/year</strong>. The <strong>7-day free trial applies to the yearly plan only</strong>.
               </li>
             </ul>
             <p>
@@ -191,19 +191,19 @@
                 <strong>OpenAI API</strong> &mdash; Transcript text (&le;250 words) is sent when you use a cloud AI summary. Governed by <a href="https://openai.com/policies/api-data-usage-policies/" target="_blank" rel="noreferrer" target="_blank" rel="noopener">OpenAI's API data usage policies</a>.
               </li>
               <li>
-                <strong>Cloudflare Workers</strong> &mdash; DRFT proxy for AI summary requests and push relay. Does not log or store transcript content in normal operation.
+                <strong>Cloudflare Workers</strong> &mdash; DRFT proxy for AI summary requests (<code>/summarize</code>). Does not log or store transcript content in normal operation.
               </li>
               <li>
-                <strong>Apple APNs</strong> &mdash; All push notifications route through APNs via our relay. Detection payloads contain only identifiers &mdash; no transcript or summary content.
-              </li>
-              <li>
-                <strong>Apple iCloud (CloudKit &amp; Key-Value Storage)</strong> &mdash; Pro iCloud sync stores moments and wake words in your private CloudKit container. Your name is stored in iCloud Key-Value Storage for feedback personalization (all tiers).
+                <strong>Apple iCloud (CloudKit &amp; Key-Value Storage)</strong> &mdash; Pro iCloud sync stores moments and wake words in your private CloudKit container. Your name is stored in iCloud Key-Value Storage to seed your default wake words and sync across your devices (all tiers).
               </li>
               <li>
                 <strong>Apple StoreKit</strong> &mdash; All subscription and purchase processing. DRFT never handles your payment instrument.
               </li>
               <li>
-                <strong>Vercel / Vercel Analytics</strong> &mdash; Promo site (drft.ing) hosting and anonymized page-view analytics.
+                <strong>Vercel</strong> &mdash; Website (bryancabrera.xyz) hosting. No analytics, no cookies.
+              </li>
+              <li>
+                <strong>Tally</strong> &mdash; Web feedback form (tally.so) opened from Settings &rarr; Feedback. Submissions governed by Tally's privacy policy.
               </li>
             </ul>
             <p>
@@ -259,7 +259,7 @@
               14. Contact
             </h2>
             <p>
-              Questions about these Terms? Reach out at <a href="mailto:support@drft.ing">support@drft.ing</a>.
+              Questions about these Terms? Reach out at <a href="mailto:nohbodie@icloud.com">nohbodie@icloud.com</a>.
             </p>
             <p>
               See also: <a href="/drft/privacy/">Privacy Policy</a>.
@@ -274,7 +274,7 @@
         <span class="footerDot">·</span>
         <span><a href="/">Home</a></span>
         <span class="footerDot">·</span>
-        <span><a href="mailto:support@drft.ing">support@drft.ing</a></span>
+        <span><a href="mailto:nohbodie@icloud.com">nohbodie@icloud.com</a></span>
       </footer>
     </main>
   </body>
