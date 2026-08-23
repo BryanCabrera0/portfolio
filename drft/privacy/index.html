@@ -32,7 +32,7 @@
       <article class="legal">
         <span class="eyebrow">DRFT · Privacy</span>
         <h1>Privacy Policy</h1>
-        <p class="updated">LAST UPDATED: 2026-06-30</p>
+        <p class="updated">LAST UPDATED: 2026-08-23</p>
         <div class="legalBody">
 
           <section>
@@ -70,7 +70,7 @@
               DRFT does not maintain user accounts or a server-side database of your personal data. There is no sign-up, no password, and no DRFT profile. Your data lives in 2 places only: on your device (SwiftData, local), and for Pro subscribers, in your own private iCloud database (Apple CloudKit &mdash; encrypted at rest by Apple, scoped exclusively to your Apple ID).
             </p>
             <p>
-              DRFT keeps no server-side database. An identifier reaches our server only per request: when you ask for an AI summary, your opaque iCloud user record ID is sent to our Cloudflare proxy and hashed into a temporary rate-limit key &mdash; it is not stored. Notifications are delivered entirely on-device; see <a href="#section-7">section 7</a>.
+              DRFT keeps no server-side database. An identifier reaches our server only per request: when you ask for a cloud AI summary, the request carries the transcript snippet, the wake word that fired, the DRFT app version, a platform tag (<code>ios</code> or <code>macos</code>), and your opaque iCloud user record ID. The record ID is hashed into a temporary rate-limit key &mdash; it is not stored, and nothing in the request is retained after the summary is returned. Notifications are delivered entirely on-device; see <a href="#section-7">section 7</a>.
             </p>
           </section>
           <section id="section-2">
@@ -112,7 +112,10 @@
                 Only <strong>text</strong> is sent &mdash; never raw audio.
               </li>
               <li>
-                The transcript snippet is capped at approximately <strong>250 words</strong>.
+                The transcript snippet is capped at <strong>250 words</strong>.
+              </li>
+              <li>
+                Alongside the snippet, the request carries the wake word that fired, the DRFT app version, a platform tag (<code>ios</code> or <code>macos</code>), and your opaque iCloud user record ID for rate limiting. No other identifier is attached.
               </li>
               <li>
                 The text is sent over HTTPS through a Cloudflare Workers proxy that validates requests and enforces rate limits. <strong>The proxy does not log or store transcript content.</strong>
@@ -121,7 +124,7 @@
                 We do not retain transcript text &mdash; it passes through our proxy and is forwarded to OpenAI's API, then discarded.
               </li>
               <li>
-                Transcripts sent to OpenAI are governed by <a href="https://openai.com/policies/api-data-usage-policies/" target="_blank" rel="noreferrer" target="_blank" rel="noopener">OpenAI's API data usage policies</a>. OpenAI states that API inputs and outputs are not used to train its models by default unless the API customer opts in. We avoid sending personal identifiers to the API. Wake words and the surrounding transcript snippets are visible to OpenAI's systems during processing.
+                Transcripts sent to OpenAI are governed by <a href="https://openai.com/policies/api-data-usage-policies/" target="_blank" rel="noopener noreferrer">OpenAI's API data usage policies</a>. OpenAI states that API inputs and outputs are not used to train its models by default unless the API customer opts in. We avoid sending personal identifiers to the API. Wake words and the surrounding transcript snippets are visible to OpenAI's systems during processing.
               </li>
               <li>
                 If the OpenAI API is unavailable, DRFT may fall back to Apple's on-device Foundation Models (<strong>Apple Intelligence</strong>) to generate the fallback summary locally after the cloud attempt fails. In normal mode, that earlier cloud attempt may have transmitted transcript text through the Cloudflare proxy and OpenAI; the no-server transcript guarantee applies only while <strong>On-Device Summaries</strong> is active.
@@ -146,7 +149,7 @@
                 <strong>Missed Moments</strong> &mdash; Detected wake word, timestamp, transcript snippet, and AI summary (if generated).
               </li>
               <li>
-                <strong>Wake Words &amp; Profiles</strong> &mdash; Your configured custom wake words and wake-word profiles.
+                <strong>Wake Words &amp; Profiles</strong> &mdash; Your wake words and wake-word profiles. Wake words are one unified pool with no default/custom split; the tier cap is 3 on Free and 10 on Pro, and profiles (Pro, up to 3) each hold their own set.
               </li>
               <li>
                 <strong>App Settings</strong> &mdash; Preferences such as detection sensitivity and notification settings.
@@ -156,7 +159,7 @@
               This data stays on your device unless you opt into iCloud sync (Pro only, see section 8).
             </p>
             <p>
-              <strong>iCloud Key-Value Storage.</strong> DRFT also stores your first and last name (entered during onboarding) in Apple's iCloud Key-Value Storage. Your name seeds your default wake words and keeps your identity in sync across your own devices. This data persists across app deletion per Apple's NSUbiquitousKeyValueStore semantics; to clear it, use <strong>Settings &rarr; Delete All Data</strong> within the App before deleting it.
+              <strong>iCloud Key-Value Storage.</strong> DRFT also stores your first and last name (entered during onboarding) in Apple's iCloud Key-Value Storage. Your name seeds your first wake words during onboarding and keeps your identity in sync across your own devices. This data persists across app deletion per Apple's NSUbiquitousKeyValueStore semantics; to clear it, use <strong>Settings &rarr; Delete All Data</strong> within the App before deleting it.
             </p>
           </section>
           <section>
@@ -168,7 +171,7 @@
             </p>
             <ul>
               <li><strong>Name</strong> &mdash; First and last name entered during onboarding; stored in iCloud Key-Value Storage across all tiers.</li>
-              <li><strong>Other User Content</strong> &mdash; Wake words and wake-word profiles you create; stored locally and (Pro only) synced to your private CloudKit zone.</li>
+              <li><strong>Other User Content</strong> &mdash; Wake words and wake-word profiles; stored locally and (Pro only) synced to your private CloudKit zone.</li>
               <li><strong>Product Interaction</strong> &mdash; Detection events, session activity, and achievement progress; stored locally for the in-app gamification system.</li>
               <li><strong>Purchase History</strong> &mdash; Pro subscription status managed by Apple StoreKit; DRFT reads entitlement state only, never payment instrument details.</li>
               <li><strong>User ID</strong> &mdash; Opaque iCloud user record ID sent with AI-summary requests so our Cloudflare proxy can rate-limit per user. It is hashed server-side and not stored.</li>
@@ -233,36 +236,29 @@
             <h2>
               12. Third-party services
             </h2>
-            <div>
-              <div>
-                <span>OpenAI API</span>
-                <span>Transcript text (&le;250 words) when AI summary is requested. Governed by <a href="https://openai.com/policies/api-data-usage-policies/" target="_blank" rel="noreferrer" target="_blank" rel="noopener">OpenAI's API data usage policies</a>.</span>
-              </div>
-              <div>
-                <span>Cloudflare Workers</span>
-                <span>DRFT proxy for AI summary requests (<code>/summarize</code>). No transcript or response body content is logged in normal operation.</span>
-              </div>
-              <div>
-                <span>Apple CloudKit (Pro sync)</span>
-                <span>Missed Moments, wake words, profiles, and achievements synced to user's private CloudKit zone (DRFTUserDataV1). DRFT cannot access this data.</span>
-              </div>
-              <div>
-                <span>Apple iCloud Key-Value Storage</span>
-                <span>First and last name (all tiers). Syncs across user's own devices. Persists across app deletion.</span>
-              </div>
-              <div>
-                <span>Apple StoreKit</span>
-                <span>Subscription status (managed entirely by Apple). DRFT never sees payment instrument.</span>
-              </div>
-              <div>
-                <span>Vercel</span>
-                <span>Website hosting (bryancabrera.xyz). No analytics, no cookies.</span>
-              </div>
-              <div>
-                <span>Tally</span>
-                <span>Web feedback form (tally.so) opened from Settings &rarr; Feedback. Submissions governed by Tally's privacy policy.</span>
-              </div>
-            </div>
+            <ul>
+              <li>
+                <strong>OpenAI API</strong> &mdash; Transcript text (&le;250 words) plus the wake word, app version, platform tag, and opaque iCloud user record ID, sent only when a cloud AI summary is requested. Governed by <a href="https://openai.com/policies/api-data-usage-policies/" target="_blank" rel="noopener noreferrer">OpenAI's API data usage policies</a>.
+              </li>
+              <li>
+                <strong>Cloudflare Workers</strong> &mdash; DRFT proxy for AI summary requests (<code>/summarize</code>). No transcript or response body content is logged in normal operation.
+              </li>
+              <li>
+                <strong>Apple CloudKit (Pro sync)</strong> &mdash; Missed Moments, wake words, profiles, and achievements synced to your private CloudKit zone (<code>DRFTUserDataV1</code>) in container <code>iCloud.BryanCabrera.DRFT</code>. DRFT cannot access this data.
+              </li>
+              <li>
+                <strong>Apple iCloud Key-Value Storage</strong> &mdash; First and last name (all tiers). Syncs across your own devices. Persists across app deletion.
+              </li>
+              <li>
+                <strong>Apple StoreKit</strong> &mdash; Subscription status, managed entirely by Apple. DRFT never sees your payment instrument.
+              </li>
+              <li>
+                <strong>Vercel</strong> &mdash; Website hosting (bryancabrera.xyz). No analytics, no cookies.
+              </li>
+              <li>
+                <strong>Tally</strong> &mdash; Web feedback form (tally.so) opened from Settings &rarr; Feedback. Submissions governed by Tally's privacy policy.
+              </li>
+            </ul>
             <p>
               We do not sell, rent, or share your personal data with any third party for their own marketing purposes.
             </p>
@@ -299,10 +295,9 @@
               <li><strong>Lodge a complaint</strong> &mdash; with your national supervisory authority.</li>
             </ul>
             <p>
-              <strong>Lawful basis per data category:</strong> Transcript text forwarded for AI summaries &mdash; legitimate interest (providing the feature you requested) with the ability to opt out at any time. Opaque iCloud user record ID sent with summary requests &mdash; legitimate interest (rate-limiting and abuse prevention for the summary service). Name in iCloud KV &mdash; contract performance (seeding your default wake words and syncing your identity across your devices).
+              <strong>Lawful basis per data category:</strong> Transcript text forwarded for AI summaries &mdash; legitimate interest (providing the feature you requested) with the ability to opt out at any time. Opaque iCloud user record ID sent with summary requests &mdash; legitimate interest (rate-limiting and abuse prevention for the summary service). Name in iCloud KV &mdash; contract performance (seeding your first wake words and syncing your identity across your devices).
             </p>
             <p>
-              <!-- OWNER REVIEW: A personal Gmail address was previously listed as a secondary contact for rights requests. Replaced with nohbodie@icloud.com. If a separate privacy@ alias is desired (e.g., privacy@bryancabrera.xyz), the owner should create it and update this section. -->
               We will respond to rights requests within 30 days. To submit a request, email <a href="mailto:nohbodie@icloud.com">nohbodie@icloud.com</a>.
             </p>
             <p>
