@@ -153,15 +153,16 @@
               6a. App Store privacy nutrition label categories
             </h2>
             <p>
-              The following data types are declared in DRFT's App Store privacy manifest (<code>PrivacyInfo.xcprivacy</code>), mirroring what the App Store shows on the product page. All of it is first-party; none of it is used for tracking, and none of it is shared with advertisers.
+              The following data types are declared in DRFT's App Store privacy manifest (<code>PrivacyInfo.xcprivacy</code>), mirroring what the App Store shows on the product page. All of it is first-party and used for app functionality only; none of it is used for tracking, and none of it is shared with advertisers. Each item reaches an Apple-private store that DRFT itself cannot read.
             </p>
             <ul>
               <li><strong>Name</strong> &mdash; First and last name entered during onboarding; stored in iCloud Key-Value Storage on all tiers.</li>
               <li><strong>Other User Content</strong> &mdash; Wake words, wake-word profiles, and saved moments; stored locally and, for DRFT+ owners, synced to your private CloudKit zone.</li>
-              <li><strong>Product Interaction</strong> &mdash; Detection and session activity, stored locally on your device for in-app display. It is not transmitted anywhere.</li>
               <li><strong>Purchase History</strong> &mdash; DRFT+ entitlement state managed by Apple StoreKit; DRFT reads entitlement state only, never payment instrument details.</li>
-              <li><strong>User ID</strong> &mdash; Applies only to App Store builds older than 2.0, which sent an opaque iCloud user record ID with cloud summary requests for rate limiting (hashed server-side, never stored). The current app sends no such identifier.</li>
             </ul>
+            <p>
+              Nothing else is declared, because nothing else leaves your device. Detection counts and session activity stay in local storage for display inside the app. Two declarations were removed when their reasons went away: the advertising and device-ID-for-ads entries when ads were taken out, and <strong>User ID</strong> in 2.0, when the cloud summary path (and with it the opaque iCloud user record ID used for rate limiting) was removed from the app.
+            </p>
           </section>
           <section id="section-7">
             <h2>
