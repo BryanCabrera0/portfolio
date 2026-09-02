@@ -10,7 +10,7 @@ Static HTML/CSS/JS, no build step.
 ```text
 index.html    Single-page portfolio
 styles.css    Design system + legal page styles
-script.js     Scroll reveals (content visible without JS)
+script.js     Nav scroll-spy (works without JS)
 404.html      Not-found page
 assets/       Photos and app assets
 drft/         DRFT legal pages: privacy/, terms/, support/

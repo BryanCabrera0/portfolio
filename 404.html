@@ -3,18 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="color-scheme" content="light" />
+    <meta name="color-scheme" content="light dark" />
     <title>404 — Page Not Found | Bryan Cabrera</title>
     <meta name="description" content="This page doesn't exist." />
     <meta name="robots" content="noindex, nofollow" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <meta name="theme-color" content="#fdfdfd" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap"
-      rel="stylesheet"
-    />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
     <link rel="stylesheet" href="/styles.css" />
     <style>
       .notFound {
@@ -42,13 +37,13 @@
       </header>
       <section class="notFound">
         <div>
-          <span class="eyebrow reveal" style="animation-delay: 0.05s">404</span>
-          <h1 class="reveal" style="animation-delay: 0.12s">Nothing on this shelf.</h1>
-          <p class="lede reveal" style="animation-delay: 0.2s">
+          <span class="eyebrow">404</span>
+          <h1>Nothing on this shelf.</h1>
+          <p class="lede">
             Whatever you were looking for isn't here.
           </p>
-          <div class="reveal" style="animation-delay: 0.28s">
-            <a class="btn" href="/">Back to home</a>
+          <div>
+            <a class="btnFill" href="/">Back to home</a>
           </div>
         </div>
       </section>
