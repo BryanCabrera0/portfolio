@@ -120,7 +120,7 @@
               </li>
             </ul>
             <p>
-              <strong>Legacy App Store builds (before 2.0).</strong> Older DRFT builds generated summaries through a Cloudflare Workers proxy that forwarded transcript text to OpenAI. That path was removed from the app in 2.0. The Worker stays deployed only so copies of those older builds still installed on devices keep working. If you are on such a build, a summary request sends a &le;256-word transcript window, the wake word that fired, the app version, a platform tag (<code>ios</code> or <code>macos</code>), and your opaque iCloud user record ID (hashed into a temporary rate-limit key, never stored) over HTTPS to that proxy, which forwards the text to OpenAI and retains nothing. Raw audio was never sent on that path either. <strong>Updating to the current version stops this entirely.</strong>
+              <strong>Legacy App Store builds (before 2.0).</strong> Older DRFT builds generated summaries through a Cloudflare Workers proxy that forwarded transcript text to OpenAI. That path was removed from the app in 2.0, and <strong>the proxy was shut down on 2026-09-06</strong>: it no longer exists, so no DRFT build of any version can send transcript text anywhere. Copies of those older builds still installed on a device no longer receive summaries; updating to the current version restores them on-device. While that proxy ran, a summary request sent a &le;256-word transcript window, the wake word that fired, the app version, a platform tag, and an opaque iCloud user record ID hashed into a temporary rate-limit key; nothing was stored, and raw audio was never sent.
             </p>
           </section>
           <section id="section-6">
@@ -240,7 +240,7 @@
                 <strong>Tally</strong> &mdash; Web feedback form (tally.so) opened from Settings &rarr; Feedback. Submissions governed by Tally's privacy policy.
               </li>
               <li>
-                <strong>Cloudflare Workers and OpenAI (legacy only)</strong> &mdash; Used by the retired cloud summary path in App Store builds older than 2.0, as described in <a href="#section-5">section 5</a>. The current app does not contact either. Transcript text sent by those older builds is governed by <a href="https://openai.com/policies/api-data-usage-policies/" target="_blank" rel="noopener noreferrer">OpenAI's API data usage policies</a>; OpenAI states that API inputs and outputs are not used to train its models by default.
+                <strong>Cloudflare Workers and OpenAI (retired)</strong> &mdash; Used by the cloud summary path in App Store builds older than 2.0, as described in <a href="#section-5">section 5</a>, until that proxy was shut down on 2026-09-06. No DRFT build contacts either today. Transcript text sent by those older builds while it ran was governed by <a href="https://openai.com/policies/api-data-usage-policies/" target="_blank" rel="noopener noreferrer">OpenAI's API data usage policies</a>; OpenAI states that API inputs and outputs are not used to train its models by default.
               </li>
             </ul>
             <p>
@@ -296,7 +296,7 @@
               Audio is ephemeral &mdash; processed in real time and discarded immediately. No audio is ever written to disk or transmitted. Saved moments (detection metadata, transcript window, and summary text) persist on your device until you delete them or they roll off the tier cap. Use <strong>Settings &rarr; RESET ALL DATA</strong> to erase everything at once.
             </p>
             <p>
-              We retain no personal data, because we operate no server that receives any. Feedback you submit through the Tally form is retained by Tally and reviewed by us only as long as needed to respond and improve DRFT. The legacy summary Worker, used only by App Store builds older than 2.0, does not log or store transcript text or summary content, and the identifier sent with such a request is hashed into a temporary rate-limit key that is not persisted.
+              We retain no personal data, because we operate no server that receives any. Feedback you submit through the Tally form is retained by Tally and reviewed by us only as long as needed to respond and improve DRFT. The legacy summary Worker, used only by App Store builds older than 2.0 and shut down on 2026-09-06, did not log or store transcript text or summary content, and the identifier sent with such a request was hashed into a temporary rate-limit key that was not persisted.
             </p>
           </section>
           <section>
