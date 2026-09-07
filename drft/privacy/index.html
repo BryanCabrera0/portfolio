@@ -27,7 +27,7 @@
       <article class="legal">
         <span class="eyebrow">DRFT · Privacy</span>
         <h1>Privacy Policy</h1>
-        <p class="updated">LAST UPDATED: 2026-09-06</p>
+        <p class="updated">LAST UPDATED: 2026-09-07</p>
         <div class="legalBody">
 
           <section>
@@ -132,10 +132,13 @@
             </p>
             <ul>
               <li>
-                <strong>Saved moments</strong> &mdash; The wake word that fired, the timestamp, the transcript window around it, the AI summary (if one was generated), a read flag, and how the audio was captured (microphone on iPhone; on Mac, the name of the app that was being captured, such as "Zoom").
+                <strong>Saved moments</strong> &mdash; The wake word that fired, the timestamp, the transcript window around it, the AI summary and its one-line short form (if one was generated), a read flag, how the audio was captured (microphone on iPhone; on Mac, the name of the app that was being captured, such as "Zoom"), and a detection identifier that lets your own devices recognize the same catch.
               </li>
               <li>
-                <strong>Wake words &amp; profiles</strong> &mdash; Your wake words and wake-word profiles. Wake words are one unified pool with no default/custom split; the cap is 3 on Free and there is no cap on DRFT+, and profiles (DRFT+, unlimited) each hold their own set.
+                <strong>Wake words &amp; profiles</strong> &mdash; Your wake words and wake-word profiles, with each word's on/off state and catch progress (the level shown next to it). Wake words are one unified pool with no default/custom split; the cap is 3 on Free and there is no cap on DRFT+, and profiles (DRFT+, unlimited) each hold their own set.
+              </li>
+              <li>
+                <strong>Speech-model customization</strong> &mdash; To spell your wake words correctly, DRFT builds a small custom vocabulary for Apple's on-device speech recognizer from your active wake words. Its training file lists those words in plain text, is stored only inside the app's container on your device, is rebuilt when your words change, and is removed by RESET ALL DATA. It is never synced or uploaded.
               </li>
               <li>
                 <strong>App settings</strong> &mdash; Preferences such as haptics and your last known permission state.
@@ -183,7 +186,7 @@
               8. iCloud sync (DRFT+)
             </h2>
             <p>
-              For DRFT+ owners, DRFT mirrors saved moments, wake words, and wake-word profiles across your devices using Apple CloudKit. The synced fields for a moment are its identifier, timestamp, wake word, transcript window, AI summary, read flag, and audio-source information. This data is stored in a <strong>custom private CloudKit zone</strong> (<code>DRFTUserDataV1</code>) inside your personal iCloud account, in container <code>iCloud.BryanCabrera.DRFT</code> &mdash; DRFT cannot access it. Apple's iCloud privacy practices and encryption-at-rest apply. <strong>DRFT has not enabled Apple's End-to-End Encryption option on this zone</strong>, so standard iCloud-at-rest encryption (Apple-key-managed) applies.
+              For DRFT+ owners, DRFT mirrors saved moments, wake words, and wake-word profiles across your devices using Apple CloudKit. The synced fields for a moment are its identifier, timestamp, wake word, transcript window, AI summary and short summary, read flag, audio-source information, how it was detected, and the shared detection identifier used to merge the same catch across your devices; a wake word syncs its text, on/off state, creation date, and progress-reset date; a profile syncs its name, its words, whether it is active, and its creation and update dates. This data is stored in a <strong>custom private CloudKit zone</strong> (<code>DRFTUserDataV1</code>) inside your personal iCloud account, in container <code>iCloud.BryanCabrera.DRFT</code> &mdash; DRFT cannot access it. Apple's iCloud privacy practices and encryption-at-rest apply. <strong>DRFT has not enabled Apple's End-to-End Encryption option on this zone</strong>, so standard iCloud-at-rest encryption (Apple-key-managed) applies.
             </p>
             <p>
               Sync follows your entitlement and your iCloud account: it is active when you own DRFT+ and your device is signed into iCloud, and inactive otherwise. There is no separate in-app on/off switch. To stop it, turn DRFT off under iCloud in your system settings, or sign out of iCloud. No audio data is ever synced. The <strong>RESET ALL DATA</strong> action in Settings also deletes the DRFT+ CloudKit zone when sync is active.
@@ -255,7 +258,7 @@
               DRFT is not directed at children under the age of 13. We do not knowingly collect personal information from children. If you believe a child has provided us with data, contact us at <a href="mailto:nohbodie@icloud.com">nohbodie@icloud.com</a> and we will delete it promptly.
             </p>
             <p>
-              <strong>Age verification (watch item).</strong> DRFT does not currently use Apple's Declared Age Range API. Debug builds log only whether the framework is present on the device; no age range is requested, stored, or transmitted, and the corresponding Apple Developer entitlement has not been enabled. If that changes, this policy will be updated first.
+              <strong>Age verification.</strong> DRFT does not use Apple's Declared Age Range API or any other age-assurance mechanism: no age range is requested, stored, or transmitted, and the corresponding Apple Developer entitlement is not enabled. If that changes, this policy will be updated first.
             </p>
           </section>
           <section>
