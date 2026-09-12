@@ -27,7 +27,7 @@
       <article class="legal">
         <span class="eyebrow">DRFT · Privacy</span>
         <h1>Privacy Policy</h1>
-        <p class="updated">LAST UPDATED: 2026-09-07</p>
+        <p class="updated">LAST UPDATED: 2026-09-12</p>
         <div class="legalBody">
 
           <section>
@@ -148,6 +148,9 @@
               This data stays on your device unless you have DRFT+ and iCloud sync is active (see <a href="#section-8">section 8</a>). Saved moments are capped at 10 on Free, where the oldest roll off as new ones arrive; DRFT+ keeps every saved moment until you delete it.
             </p>
             <p>
+              <strong>Sharing a moment.</strong> Share on a moment's page uses the system share sheet to hand the app you choose a one-line description of the catch (the wake word, the app or device it came from, and the time) and the moment's summary. The transcript window is not included. Nothing is shared unless you tap Share, and what the receiving app does with it is governed by that app's own policy.
+            </p>
+            <p>
               <strong>iCloud Key-Value Storage.</strong> DRFT also stores your first and last name (entered during onboarding) in Apple's iCloud Key-Value Storage, under the keys <code>drft.firstName</code> and <code>drft.lastName</code>. Your name seeds your first wake words during onboarding and keeps them consistent across your own devices. This data persists across app deletion per Apple's <code>NSUbiquitousKeyValueStore</code> semantics; to clear it, use <strong>Settings &rarr; RESET ALL DATA</strong> inside the app before deleting the app.
             </p>
           </section>
@@ -175,7 +178,7 @@
               DRFT notifications are <strong>on-device local notifications</strong> (Apple's <code>UNUserNotificationCenter</code>). They are scheduled on the same device that detected the wake word &mdash; there is no Apple Push Notification service (APNs) round-trip and no server relay. They are marked time-sensitive so they can surface during Focus. If you decline or revoke notification permission, no notification is shown; DRFT still saves the detection and surfaces it in the app.
             </p>
             <p>
-              <strong>What a notification contains.</strong> A detection notification carries only a title of the form &ldquo;&lt;KEYWORD&gt; Detected&rdquo;, the fixed body &ldquo;Open DRFT to view summary.&rdquo;, and opaque identifiers (the keyword and a detection ID) under <code>userInfo["drft"]</code>. <strong>Transcripts and AI summaries are never placed in a notification.</strong> When you open a detection notification, the app loads the moment (including any summary) from local app storage, or from your private CloudKit container when DRFT+ sync is active.
+              <strong>What a notification contains.</strong> A detection notification carries only a title of the form &ldquo;&lt;KEYWORD&gt; Detected&rdquo;, the fixed body &ldquo;Saved to History.&rdquo;, and opaque identifiers (the keyword and a detection ID) under <code>userInfo["drft"]</code>. <strong>Transcripts and AI summaries are never placed in a notification.</strong> When you open a detection notification, the app loads the moment (including any summary) from local app storage, or from your private CloudKit container when DRFT+ sync is active.
             </p>
             <p>
               <strong>No device tokens, no push relay.</strong> Because notifications are local, DRFT does not register for remote push, never transmits an APNs device token to any server, and does not relay detections between your Mac and iPhone. A detection on your Mac notifies your Mac; a detection on your iPhone notifies your iPhone. Your wake words and saved moments still sync across devices through iCloud (DRFT+, see <a href="#section-8">section 8</a>).
@@ -197,7 +200,7 @@
               9. Feedback submissions
             </h2>
             <p>
-              When you tap <strong>Feedback</strong> in Settings, DRFT opens a web feedback form hosted by <strong>Tally</strong> (<a href="https://tally.so" target="_blank" rel="noopener">tally.so</a>) in your browser. What you submit goes to Tally and is governed by <a href="https://tally.so/help/privacy-policy" target="_blank" rel="noopener">Tally's privacy policy</a>; DRFT does not pre-fill your name or any personal data into the form &mdash; only what you choose to type is included. We review submissions to respond to you and improve DRFT. For privacy or legal questions, you can also email us directly (see Contact below).
+              When you tap <strong>Feedback</strong> in Settings (or on a moment's page), DRFT opens a web feedback form hosted by <strong>Tally</strong> (<a href="https://tally.so" target="_blank" rel="noopener">tally.so</a>) in your browser. What you submit goes to Tally and is governed by <a href="https://tally.so/help/privacy-policy" target="_blank" rel="noopener">Tally's privacy policy</a>; DRFT does not pre-fill your name or any personal data into the form &mdash; only what you choose to type is included. We review submissions to respond to you and improve DRFT. For privacy or legal questions, you can also email us directly (see Contact below).
             </p>
           </section>
           <section>

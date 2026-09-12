@@ -70,7 +70,7 @@
               <strong>iPhone:</strong> Download DRFT from the <a href="https://apps.apple.com/app/id6760685733" target="_blank" rel="noopener noreferrer">App Store</a>. On first launch, enter your name &mdash; it seeds your first wake words, which you can edit or replace &mdash; and grant Microphone + Speech Recognition permission. Tap Start to begin a listening session. DRFT keeps listening in the background and pings you when it hears one of your words.
             </p>
             <p>
-              <strong>Mac:</strong> Download DRFT from the <a href="https://apps.apple.com/app/id6760685733" target="_blank" rel="noopener noreferrer">Mac App Store</a>. Grant System Audio Recording permission when prompted. DRFT lives in your menu bar &mdash; click the icon, pick an audio source, and start a session to monitor Zoom, Teams, Meet, Slack, Discord, or any app playing sound.
+              <strong>Mac:</strong> Download DRFT from the <a href="https://apps.apple.com/app/id6760685733" target="_blank" rel="noopener noreferrer">Mac App Store</a>. Grant System Audio Recording permission when prompted. DRFT lives in your menu bar &mdash; click the icon, pick an audio source, and start a session to monitor Zoom, Teams, Webex, FaceTime, Slack, Discord, or a browser running Meet or another web call.
             </p>
           </section>
 
@@ -95,7 +95,7 @@
                 <strong>
                   System Audio Recording (Mac)
                 </strong>
-                &mdash; Required for the Mac app to capture audio from other apps. Grant it through System Settings &rarr; Privacy &amp; Security &rarr; System Audio Recording. DRFT uses Core Audio process taps: it never records your screen and the Mac app holds no microphone entitlement.
+                &mdash; Required for the Mac app to capture audio from other apps. Grant it through System Settings &rarr; Privacy &amp; Security &rarr; Screen &amp; System Audio Recording. DRFT uses Core Audio process taps: it never records your screen and the Mac app holds no microphone entitlement.
               </li>
               <li>
                 <strong>
@@ -160,6 +160,12 @@
               Apple's speech recognizer accepts a limited number of vocabulary hints, so with a very long list the
               first words you added get the strongest spelling boost; every word is still detected.
             </p>
+            <p>
+              Words and profiles live in Settings on both platforms (the gear on iPhone; the Settings row in the Mac
+              menu), where each word is edited in place. A word can be up to 20 letters. While a listening session is
+              running, the Words and Profiles sections are locked and the add rows are hidden &mdash; stop the session
+              to change them.
+            </p>
 
             <h3>
               What happens when I hit my saved-moment limit?
@@ -184,7 +190,7 @@
               What apps does DRFT work with on Mac?
             </h3>
             <p>
-              DRFT on Mac works with Zoom, Microsoft Teams, Google Meet, Webex, FaceTime, Discord, Slack huddles, and any app that plays audio through your Mac &mdash; including browsers like Chrome, Safari, Arc, Edge, Brave, Opera, and Firefox.
+              DRFT on Mac taps one app at a time, from a fixed list: Zoom, Microsoft Teams, Webex, GoTo Meeting, FaceTime, Discord, Slack, WhatsApp, Telegram, Signal, Loom, RingCentral, Dialpad, and the browsers Safari, Chrome, Firefox, Arc, Edge, Brave, and Opera (for Google Meet and other web calls). Only apps from this list that are currently running appear in the audio-source picker.
             </p>
 
             <h3>
@@ -225,7 +231,7 @@
               Mac isn't capturing audio
             </h3>
             <p>
-              Grant System Audio Recording permission to DRFT in System Settings &rarr; Privacy &amp; Security &rarr; System Audio Recording, then restart DRFT for the change to take effect. Make sure the app you want to monitor is actually playing audio when you start the session.
+              Grant System Audio Recording permission to DRFT in System Settings &rarr; Privacy &amp; Security &rarr; Screen &amp; System Audio Recording, then restart DRFT for the change to take effect. Make sure the app you want to monitor is on the supported list (see the FAQ), is running before you open the picker, and is actually playing audio when you start the session.
             </p>
 
             <h3>
@@ -300,7 +306,7 @@
               7. Privacy &amp; data
             </h2>
             <p>
-              DRFT processes all audio on-device using Apple's speech recognition framework. Audio is never recorded, stored, or sent anywhere. AI summaries are generated on-device by Apple Intelligence, so transcript text doesn't leave your device either. What's saved is the wake word, the timestamp, the short transcript window around the detection, and the summary &mdash; on your device, and in your own private iCloud database if you have DRFT+.
+              DRFT processes all audio on-device using Apple's speech recognition framework. Audio is never recorded, stored, or sent anywhere. AI summaries are generated on-device by Apple Intelligence, so transcript text doesn't leave your device either. What's saved is the wake word, the timestamp, the short transcript window around the detection, and the summary &mdash; on your device, and in your own private iCloud database if you have DRFT+. Sharing a moment (Share on its detail page) hands a one-line description and its summary to the app you pick, and only when you tap Share.
             </p>
             <p>
               For full details, see the <a href="/drft/privacy/">Privacy Policy</a> and <a href="/drft/terms/">Terms of Service</a>.
@@ -315,7 +321,7 @@
               You can delete everything at any time by opening the app and going to Settings &rarr; <strong>RESET ALL DATA</strong>. This wipes all saved moments, wake words, profiles, and preferences from your device, clears the name stored in iCloud Key-Value Storage, and removes the DRFT+ iCloud zone when sync is active. Your DRFT+ purchase is unaffected.
             </p>
             <p>
-              To delete individual moments, open History, tap <strong>Edit</strong>, select the moments you want gone, and tap Delete. Deleting the app entirely removes all local data immediately.
+              To delete individual moments, open History, tap <strong>Edit</strong>, select the moments you want gone, and tap Delete. History has a search field on both platforms for finding a moment by its word or text. Deleting the app entirely removes all local data immediately.
             </p>
           </section>
 
