@@ -64,13 +64,13 @@
               2. Getting started
             </h2>
             <p>
-              <strong>Requirements:</strong> iOS 26.2 or later on iPhone; macOS 26.2 or later on Mac. AI summaries additionally need an Apple Intelligence&ndash;capable device (see the FAQ below).
+              <strong>Requirements:</strong> iOS 26.0 or later on iPhone; macOS 26.0 or later on Mac. AI summaries additionally need an Apple Intelligence&ndash;capable device (see the FAQ below).
             </p>
             <p>
-              <strong>iPhone:</strong> Download DRFT from the <a href="https://apps.apple.com/app/id6760685733" target="_blank" rel="noopener noreferrer">App Store</a>. On first launch, enter your name &mdash; it seeds your first wake words, which you can edit or replace &mdash; and grant Microphone + Speech Recognition permission. Tap Start to begin a listening session. DRFT keeps listening in the background and pings you when it hears one of your words.
+              <strong>iPhone:</strong> Download DRFT from the <a href="https://apps.apple.com/app/id6760685733" target="_blank" rel="noopener noreferrer">App Store</a>. On first launch, enter your name &mdash; it seeds your first wake words, which you can edit or replace &mdash; and grant Microphone + Speech Recognition permission. Tap Start to begin a listening session &mdash; the first time, DRFT asks whether it may send you notifications. DRFT keeps listening in the background and pings you when it hears one of your words.
             </p>
             <p>
-              <strong>Mac:</strong> Download DRFT from the <a href="https://apps.apple.com/app/id6760685733" target="_blank" rel="noopener noreferrer">Mac App Store</a>. Grant System Audio Recording permission when prompted. DRFT lives in your menu bar &mdash; click the icon, pick an audio source, and start a session to monitor Zoom, Teams, Webex, FaceTime, Slack, Discord, or a browser running Meet or another web call.
+              <strong>Mac:</strong> Download DRFT from the <a href="https://apps.apple.com/app/id6760685733" target="_blank" rel="noopener noreferrer">Mac App Store</a>. Enter your name &mdash; as on iPhone, it seeds your first wake words &mdash; and grant Speech Recognition and System Audio Recording permission when prompted. DRFT lives in your menu bar &mdash; click the icon, pick an audio source, and start a session to monitor Zoom, Teams, Webex, FaceTime, Slack, Discord, or a browser running Meet or another web call. The first time you start a session, DRFT asks whether it may send you notifications.
             </p>
           </section>
 
@@ -101,7 +101,7 @@
                 <strong>
                   Notifications
                 </strong>
-                &mdash; Optional. Lets DRFT alert you when the app is in the background; detection alerts are marked time-sensitive so they can break through Focus. If you decline, DRFT still saves every detection to History.
+                &mdash; Optional. Lets DRFT alert you when the app is in the background; detection alerts are marked time-sensitive so they can break through Focus. DRFT asks the first time you start a listening session, never during onboarding. If you decline, DRFT still saves every detection to History.
               </li>
             </ul>
           </section>
@@ -136,7 +136,7 @@
               Is my audio &mdash; or my transcript &mdash; sent to the cloud?
             </h3>
             <p>
-              No. Speech recognition runs entirely on your device using Apple's framework, and audio is never recorded or stored. AI summaries also run entirely on your device using Apple Intelligence, so no transcript text is sent anywhere either. The current app makes no network requests of its own: it talks to Apple's iCloud and App Store services, and opens links you tap.
+              No. Speech recognition runs entirely on your device using Apple's framework, and audio is never recorded or stored. AI summaries also run entirely on your device using Apple Intelligence, so no transcript text is sent to a summarizer either. With DRFT+, the short transcript window saved with each moment does sync through your own private iCloud database, which DRFT can't read; that's the only place it goes. The current app makes no network requests of its own: it talks to Apple's iCloud and App Store services, and opens links you tap.
             </p>
             <p>
               One exception: App Store builds older than 2.0 used a cloud summary path (a Cloudflare Worker forwarding text to OpenAI). That service was shut down on 2026-09-06, so those builds no longer get summaries at all; updating to the current version brings them back, on-device. Full detail is in the <a href="/drft/privacy/">Privacy Policy</a>.
@@ -224,7 +224,7 @@
               I'm not getting notifications
             </h3>
             <p>
-              Enable notifications for DRFT in Settings &rarr; Notifications &rarr; DRFT, or tap the <strong>NOTIFICATIONS</strong> row in DRFT's own Settings to jump straight there. If notifications stay off, DRFT still saves every detection to History.
+              Enable notifications for DRFT in Settings &rarr; Notifications &rarr; DRFT (System Settings &rarr; Notifications on Mac), or tap the <strong>NOTIFICATIONS</strong> row in DRFT's own Settings to jump straight there; on Mac, if DRFT has never asked for permission, that row asks first. If notifications stay off, DRFT still saves every detection to History.
             </p>
 
             <h3>
@@ -270,7 +270,7 @@
               <strong>
                 DRFT+ is a one-time purchase.
               </strong>
-              There is no subscription to manage and nothing to cancel. It's tied to your Apple Account, so <strong>Restore Purchases</strong> brings it back on a new device or after a reinstall.
+              There is no subscription to manage and nothing to cancel. It's tied to your Apple Account, so <strong>Restore Purchases</strong> brings it back on a new device or after a reinstall. Family Sharing is on, so the people in your Family Sharing group can use it too.
             </p>
             <p>
               <strong>
@@ -306,7 +306,7 @@
               7. Privacy &amp; data
             </h2>
             <p>
-              DRFT processes all audio on-device using Apple's speech recognition framework. Audio is never recorded, stored, or sent anywhere. AI summaries are generated on-device by Apple Intelligence, so transcript text doesn't leave your device either. What's saved is the wake word, the timestamp, the short transcript window around the detection, and the summary &mdash; on your device, and in your own private iCloud database if you have DRFT+. Sharing a moment (Share on its detail page) hands a one-line description and its summary to the app you pick, and only when you tap Share.
+              DRFT processes all audio on-device using Apple's speech recognition framework. Audio is never recorded, stored, or sent anywhere. AI summaries are generated on-device by Apple Intelligence, so transcript text isn't sent to any AI service either. What's saved is the wake word, the timestamp, the short transcript window around the detection, and the summary &mdash; on your device, and in your own private iCloud database if you have DRFT+. Sharing a moment (Share on its detail page) hands a one-line description and its summary to the app you pick, and only when you tap Share.
             </p>
             <p>
               For full details, see the <a href="/drft/privacy/">Privacy Policy</a> and <a href="/drft/terms/">Terms of Service</a>.
@@ -318,10 +318,13 @@
               8. Deleting your data
             </h2>
             <p>
-              You can delete everything at any time by opening the app and going to Settings &rarr; <strong>RESET ALL DATA</strong>. This wipes all saved moments, wake words, profiles, and preferences from your device, clears the name stored in iCloud Key-Value Storage, and removes the DRFT+ iCloud zone when sync is active. Your DRFT+ purchase is unaffected.
+              You can delete everything at any time by opening the app and going to Settings &rarr; <strong>RESET ALL DATA</strong>. This wipes all saved moments, wake words, profiles, and preferences from your device, and removes the DRFT+ iCloud zone when sync is active. Your DRFT+ purchase is unaffected.
             </p>
             <p>
-              To delete individual moments, open History, tap <strong>Edit</strong>, select the moments you want gone, and tap Delete. History has a search field on both platforms for finding a moment by its word or text. Deleting the app entirely removes all local data immediately.
+              With DRFT+, your other devices signed in to the same iCloud account that have DRFT 2.0.2 or later erase their synced moments, words, and profiles too once they receive that deletion; anything created on them afterwards is kept. Deleting DRFT's data from iCloud in your system settings has the same effect on every such device. A device still on an earlier version uploads its copy again, which can bring your data back, so update DRFT on all your devices before you reset.
+            </p>
+            <p>
+              To delete individual moments, open History, tap <strong>Edit</strong>, select the moments you want gone, and tap Delete; on Mac, right-click a moment and choose Delete, or use <strong>Delete All Moments&hellip;</strong> at the end of History. History has a search field on both platforms for finding a moment by its word or text. Deleting the app entirely removes all local data immediately.
             </p>
           </section>
 
