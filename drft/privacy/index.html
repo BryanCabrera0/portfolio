@@ -27,7 +27,7 @@
       <article class="legal">
         <span class="eyebrow">DRFT · Privacy</span>
         <h1>Privacy Policy</h1>
-        <p class="updated">LAST UPDATED: 2026-09-26</p>
+        <p class="updated">LAST UPDATED: 2026-10-05</p>
         <div class="legalBody">
 
           <section>
@@ -49,7 +49,7 @@
                   <strong>AI summaries also run entirely on your device</strong> using Apple Intelligence. No transcript text is sent to us or to any AI vendor. Summaries are a DRFT+ feature; on the free tier the summary card shows a <strong>GET DRFT+</strong> button instead.
                 </li>
                 <li>
-                  <strong>The current app makes no network requests of its own.</strong> It talks to Apple (iCloud and the App Store) and opens links you tap. That is all. See <a href="#section-5">section 5</a> for the one exception: App Store builds older than 2.0, which still use the retired cloud summary path.
+                  <strong>The current app makes no network requests of its own.</strong> It talks to Apple (iCloud and the App Store) and opens links you tap. See <a href="#section-5">section 5</a> for the cloud summary service used by builds older than 2.0, which was shut down on 2026-09-06.
                 </li>
                 <li>
                   <strong>No ads and no product analytics SDKs</strong> &mdash; no Google Mobile Ads, no Firebase, Mixpanel, or similar, on any platform or tier.
@@ -110,7 +110,7 @@
                 <strong>Nothing is transmitted to summarize.</strong> There is no summary server, no proxy, and no AI vendor in the path. The transcript window leaves your device only as part of a DRFT+ moment synced to your own private iCloud database (see <a href="#section-8">section 8</a>).
               </li>
               <li>
-                The window the model sees is capped at <strong>256 words</strong> of transcript around the detection.
+                DRFT summarizes a short window of speech around the detection. The detection pipeline and saved moment keep at most <strong>256 words</strong>; summary preparation identifies the wake word in that context and can shorten the input to fit the on-device model.
               </li>
               <li>
                 Summaries are a <strong>DRFT+</strong> feature and require an Apple Intelligence&ndash;capable device with Apple Intelligence turned on. Where that is not the case, DRFT explains why the summary is unavailable rather than sending the text elsewhere.
@@ -123,7 +123,7 @@
               </li>
             </ul>
             <p>
-              <strong>Legacy App Store builds (before 2.0).</strong> Older DRFT builds generated summaries through a Cloudflare Workers proxy that forwarded transcript text to OpenAI. That path was removed from the app in 2.0, and <strong>the proxy was shut down on 2026-09-06</strong>: it no longer exists, so no DRFT build of any version can send transcript text anywhere. Copies of those older builds still installed on a device no longer receive summaries; updating to the current version restores them on-device. While that proxy ran, a summary request sent a &le;256-word transcript window, the wake word that fired, the app version, a platform tag, and an opaque iCloud user record ID hashed into a temporary rate-limit key; nothing was stored, and raw audio was never sent.
+              <strong>Legacy App Store builds (before 2.0).</strong> Older DRFT builds generated summaries through a Cloudflare Workers proxy that forwarded transcript text to OpenAI. That path was removed from the app in 2.0, and <strong>the proxy was shut down on 2026-09-06</strong>: it no longer receives transcript text. Copies of those older builds still installed on a device no longer receive summaries; updating to the current version restores them on-device. While that proxy ran, a summary request sent a &le;256-word transcript window, the wake word that fired, the app version, a platform tag, and an opaque iCloud user record ID hashed into a temporary rate-limit key; nothing was stored, and raw audio was never sent.
             </p>
           </section>
           <section id="section-6">
@@ -141,6 +141,9 @@
                 <strong>Wake words &amp; profiles</strong> &mdash; Your wake words and wake-word profiles, with each word's on/off state and catch progress (the level shown next to it). Wake words are one unified pool with no default/custom split; the cap is 3 on Free and there is no cap on DRFT+, and profiles (DRFT+, unlimited) each hold their own set.
               </li>
               <li>
+                <strong>Word progress</strong> &mdash; A catch count for each word spelling and each installation, associated with a random installation identifier. These counts determine word levels. Deleting moments or a word does not erase its progress; RESET ALL DATA clears it.
+              </li>
+              <li>
                 <strong>Speech-model customization</strong> &mdash; To spell your wake words correctly, DRFT builds a small custom vocabulary for Apple's on-device speech recognizer from your active wake words. Its training file lists those words in plain text, is stored only inside the app's container on your device, is rebuilt when your words change, and is removed by RESET ALL DATA. It is never synced or uploaded.
               </li>
               <li>
@@ -154,23 +157,18 @@
               <strong>Sharing a moment.</strong> Share on a moment's page uses the system share sheet to hand the app you choose a one-line description of the catch (the wake word, the app or device it came from, and the time) and the moment's summary. The transcript window is not included. Nothing is shared unless you tap Share, and what the receiving app does with it is governed by that app's own policy.
             </p>
             <p>
-              <strong>iCloud Key-Value Storage.</strong> From version 2.0.2, DRFT keeps no copy of the first and last name you enter during onboarding: it uses the name on your device to seed your first wake words (when you have none yet), which are then stored like any other wake word. Versions before 2.0.2 also stored the name in Apple's iCloud Key-Value Storage, under the keys <code>drft.firstName</code> and <code>drft.lastName</code>, where it synced across your own devices and persisted across app deletion per Apple's <code>NSUbiquitousKeyValueStore</code> semantics. DRFT 2.0.2 and later erase that copy every time the app launches, and <strong>Settings &rarr; RESET ALL DATA</strong> erases it too.
+              <strong>iCloud Key-Value Storage.</strong> From version 2.1.0, DRFT keeps no copy of the first and last name you enter during onboarding: it uses the name on your device to seed your first wake words (when you have none yet), which are then stored like any other wake word. Versions before 2.1.0 also stored the name in Apple's iCloud Key-Value Storage, under the keys <code>drft.firstName</code> and <code>drft.lastName</code>, where it synced across your own devices and persisted across app deletion per Apple's <code>NSUbiquitousKeyValueStore</code> semantics. DRFT 2.1.0 and later erase that copy every time the app launches, and <strong>Settings &rarr; RESET ALL DATA</strong> erases it too.
             </p>
           </section>
           <section>
             <h2>
-              6a. App Store privacy nutrition label categories
+              6a. The App Store privacy label
             </h2>
             <p>
-              The following data types are declared in DRFT's App Store privacy manifest (<code>PrivacyInfo.xcprivacy</code>), mirroring what the App Store shows on the product page. All of it is first-party and used for app functionality only; none of it is used for tracking, and none of it is shared with advertisers. Whatever leaves your device goes only to an Apple-private store that DRFT itself cannot read.
+              DRFT's App Store privacy label says <strong>Data Not Collected</strong>. Under <a href="https://developer.apple.com/app-store/app-privacy-details/" target="_blank" rel="noopener noreferrer">Apple's definition</a>, collection involves sending data off your device in a way that gives the developer or its third-party partners access beyond servicing a request. Data processed only on your device is not collected, and Apple says developers are not responsible for declaring data Apple collects through its own frameworks and services.
             </p>
-            <ul>
-              <li><strong>Name</strong> &mdash; First and last name entered during onboarding. From version 2.0.2 the name itself is not kept: it seeds your first wake words on your device (see Other User Content). Versions before 2.0.2 stored it in iCloud Key-Value Storage on all tiers; 2.0.2 and later erase that copy.</li>
-              <li><strong>Other User Content</strong> &mdash; Wake words, wake-word profiles, and saved moments; stored locally and, for DRFT+ owners, synced to your private CloudKit zone.</li>
-              <li><strong>Purchase History</strong> &mdash; DRFT+ entitlement state managed by Apple StoreKit; DRFT reads entitlement state only, never payment instrument details.</li>
-            </ul>
             <p>
-              Nothing else is declared, because nothing else leaves your device. Detection counts and session activity stay in local storage for display inside the app. Two declarations were removed when their reasons went away: the advertising and device-ID-for-ads entries when ads were taken out, and <strong>User ID</strong> in 2.0, when the cloud summary path (and with it the opaque iCloud user record ID used for rate limiting) was removed from the app.
+              This label does not mean your data is never stored or synced. DRFT stores your moments and words locally; with DRFT+, they and your per-installation word catch counts sync to your private iCloud database, which we cannot access. Apple handles purchases, and DRFT checks entitlement on your device. None of this is sent to a DRFT server or a third-party analytics service. See <a href="#section-8">section 8</a> for sync details and section 9 for support information you choose to submit outside the app.
             </p>
           </section>
           <section id="section-7">
@@ -178,13 +176,13 @@
               7. Notifications
             </h2>
             <p>
-              DRFT notifications are <strong>on-device local notifications</strong> (Apple's <code>UNUserNotificationCenter</code>). They are scheduled on the same device that detected the wake word &mdash; there is no Apple Push Notification service (APNs) round-trip and no server relay. They are marked time-sensitive so they can surface during Focus. DRFT asks for notification permission the first time you start a listening session, never during onboarding. If you decline or revoke notification permission, no notification is shown; DRFT still saves the detection and surfaces it in the app.
+              Detection notifications are <strong>on-device local notifications</strong> (Apple's <code>UNUserNotificationCenter</code>). They are scheduled on the same device that detected the wake word, with no server relay. They are time-sensitive so they can surface during Focus; while an iPhone Live Activity alerts you to the same catch, its notification is passive and silent. DRFT asks for notification permission when you first start listening or use the Notifications row in Settings, never during onboarding. If you decline or revoke notification permission, no notification is shown; DRFT still saves the detection and surfaces it in the app.
             </p>
             <p>
               <strong>What a notification contains.</strong> A detection notification carries only a title of the form &ldquo;&lt;KEYWORD&gt; Detected&rdquo;, the fixed body &ldquo;Saved to History.&rdquo;, and an opaque detection ID under <code>userInfo["drft"]</code>. <strong>Transcripts and AI summaries are never placed in a notification.</strong> When you open a detection notification, the app loads the moment (including any summary) from local app storage, or from your private CloudKit container when DRFT+ sync is active.
             </p>
             <p>
-              <strong>No device tokens, no push relay.</strong> Because notifications are local, DRFT does not register for remote push, never transmits an APNs device token to any server, and does not relay detections between your Mac and iPhone. A detection on your Mac notifies your Mac; a detection on your iPhone notifies your iPhone. Your wake words and saved moments still sync across devices through iCloud (DRFT+, see <a href="#section-8">section 8</a>).
+              <strong>CloudKit change notices.</strong> Apple uses silent push notifications to keep DRFT+ iCloud sync up to date. These are separate from detection alerts: DRFT has no push server, sends no device token to us, and does not relay detection notifications between your Mac and iPhone. A catch on your Mac alerts your Mac; a catch on your iPhone alerts your iPhone. Synced data is described in <a href="#section-8">section 8</a>.
             </p>
           </section>
           <section id="section-8">
@@ -192,16 +190,22 @@
               8. iCloud sync (DRFT+)
             </h2>
             <p>
-              For DRFT+ owners, DRFT mirrors saved moments, wake words, and wake-word profiles across your devices using Apple CloudKit. The synced fields for a moment are its identifier, timestamp, wake word, transcript window, AI summary and short summary, read flag, audio-source information, how it was detected, and the shared detection identifier used to merge the same catch across your devices; a wake word syncs its text, on/off state, creation date, and progress-reset date; a profile syncs its name, its words, whether it is active, and its creation and update dates. This data is stored in a <strong>custom private CloudKit zone</strong> (<code>DRFTUserDataV1</code>) inside your personal iCloud account, in container <code>iCloud.BryanCabrera.DRFT</code> &mdash; DRFT cannot access it. Apple's iCloud privacy practices and encryption-at-rest apply. <strong>DRFT has not enabled Apple's End-to-End Encryption option on this zone</strong>, so standard iCloud-at-rest encryption (Apple-key-managed) applies.
+              For DRFT+ owners, DRFT mirrors saved moments, wake words, wake-word profiles, and word progress across your devices using Apple CloudKit. A moment syncs its identifier, timestamp, wake word, transcript window, AI summary and short summary, read flag, audio-source information, detection method, and shared detection identifier. A wake word syncs its text, on/off state, creation date, and legacy progress-reset date; a profile syncs its name, word entries, active state, and creation and update dates.
+            </p>
+            <p>
+              <strong>Word progress sync.</strong> Each installation uploads its own catch count for each normalized word spelling, together with a random installation identifier. Your devices combine these counts to show the word's level. These records remain when you delete individual moments or words; RESET ALL DATA clears them. They are used only for your word progress, never for advertising or developer analytics.
+            </p>
+            <p>
+              This data is stored in a <strong>custom private CloudKit zone</strong> (<code>DRFTUserDataV1</code>) inside your personal iCloud account, in container <code>iCloud.BryanCabrera.DRFT</code>. We cannot access this database. Apple's iCloud privacy practices and encryption-at-rest apply. <strong>DRFT has not enabled Apple's End-to-End Encryption option on this zone</strong>, so standard iCloud-at-rest encryption (Apple-key-managed) applies.
             </p>
             <p>
               Sync follows your entitlement and your iCloud account: it is active when you own DRFT+ and your device is signed into iCloud, and inactive otherwise. There is no separate in-app on/off switch. To stop it, turn DRFT off under iCloud in your system settings, or sign out of iCloud. No audio data is ever synced. The <strong>RESET ALL DATA</strong> action in Settings also deletes the DRFT+ CloudKit zone when sync is active.
             </p>
             <p>
-              <strong>Deleting the iCloud copy.</strong> From version 2.0.2, when that zone is deleted &mdash; by <strong>RESET ALL DATA</strong> on any of your devices, or because you delete DRFT's data from iCloud in your system settings &mdash; each of your devices signed in to the same iCloud account that has DRFT 2.0.2 or later and DRFT+ sync active erases its own copy too once it receives that deletion: its saved moments, wake words, and profiles, its speech-model training file, and any copy of its database that DRFT had set aside because it could not be opened. Its settings and your DRFT+ purchase are kept, and so is anything created on it after the deletion arrived, which then syncs again. A device still on an earlier version keeps its copy and uploads it to iCloud again, from where it can sync back to your other devices, so update DRFT on every device before you reset. A device that does not receive the deletion keeps its copy; this is not a guaranteed remote wipe.
+              <strong>Deleting the iCloud copy.</strong> From version 2.1.0, when that zone is deleted &mdash; by <strong>RESET ALL DATA</strong> on any of your devices, or because you delete DRFT's data from iCloud in your system settings &mdash; each of your devices signed in to the same iCloud account that has DRFT 2.1.0 or later and DRFT+ sync active erases its own copy too once it receives that deletion: its saved moments, wake words, profiles, and word catch counts, its speech-model training file, and any copy of its database that DRFT had set aside because it could not be opened. Its settings and your DRFT+ purchase are kept, and so are moments, words, and profiles created on it after the deletion arrived, which then sync again. All word catch counts are cleared. An iCloud encryption reset instead keeps and re-uploads the local data. A device still on an earlier version keeps its copy and uploads it to iCloud again, from where it can sync back to your other devices, so update DRFT on every device before you reset. A device that does not receive the deletion keeps its copy; this is not a guaranteed remote wipe.
             </p>
             <p>
-              <strong>Local sync cache.</strong> So that your edits reach iCloud as updates rather than new copies, DRFT keeps a small cache on each syncing device of every synced record's CloudKit system fields (such as its record ID and change tag), never the record's field values such as the transcript window or summary. Versions before 2.0.2 cached whole records, transcript window and summary included (version 1.0.5 kept them in the app's preferences); DRFT 2.0.2 and later convert any such copy to system fields only and then delete it, starting at the first launch after the update, whether or not you still have DRFT+. <strong>RESET ALL DATA</strong> deletes the cache entirely.
+              <strong>Local sync cache.</strong> So that your edits reach iCloud as updates rather than new copies, DRFT keeps a small cache on each syncing device of every synced record's CloudKit system fields (such as its record ID and change tag), never the record's field values such as the transcript window or summary. Versions before 2.1.0 cached whole records, transcript window and summary included (version 1.0.5 kept them in the app's preferences); DRFT 2.1.0 and later convert any such copy to system fields only and then delete it, starting at the first launch after the update, whether or not you still have DRFT+. <strong>RESET ALL DATA</strong> deletes the cache entirely.
             </p>
           </section>
           <section>
@@ -220,7 +224,7 @@
               <strong>Website.</strong> Our website (bryancabrera.xyz) uses no analytics, no cookies, and no third-party trackers.
             </p>
             <p>
-              <strong>App.</strong> DRFT does not use third-party product analytics SDKs. There is no Firebase, Mixpanel, Amplitude, Segment, PostHog, or equivalent in the iPhone or Mac app. Usage data such as detection counts and session activity is stored locally on your device for display inside the app and is not transmitted to any server.
+              <strong>App.</strong> DRFT does not use third-party product analytics SDKs. There is no Firebase, Mixpanel, Amplitude, Segment, PostHog, or equivalent in the iPhone or Mac app. We receive no detection counts or session activity. Word catch counts stay local on Free and sync only to your private iCloud database with DRFT+, as described in <a href="#section-8">section 8</a>.
             </p>
           </section>
           <section>
@@ -240,10 +244,10 @@
             </h2>
             <ul>
               <li>
-                <strong>Apple CloudKit (DRFT+ sync)</strong> &mdash; Saved moments, wake words, and profiles synced to your private CloudKit zone (<code>DRFTUserDataV1</code>) in container <code>iCloud.BryanCabrera.DRFT</code>. DRFT cannot access this data.
+                <strong>Apple CloudKit (DRFT+ sync)</strong> &mdash; Saved moments, wake words, profiles, and per-installation word catch counts synced to your private CloudKit zone (<code>DRFTUserDataV1</code>) in container <code>iCloud.BryanCabrera.DRFT</code>. We cannot access this database.
               </li>
               <li>
-                <strong>Apple iCloud Key-Value Storage (versions before 2.0.2)</strong> &mdash; First and last name (all tiers), synced across your own devices and persisting across app deletion. DRFT 2.0.2 and later store nothing here and erase that copy at launch.
+                <strong>Apple iCloud Key-Value Storage (versions before 2.1.0)</strong> &mdash; First and last name (all tiers), synced across your own devices and persisting across app deletion. DRFT 2.1.0 and later store nothing here and erase that copy at launch.
               </li>
               <li>
                 <strong>Apple StoreKit</strong> &mdash; DRFT+ purchase and entitlement state, managed entirely by Apple. DRFT never sees your payment instrument.
@@ -278,7 +282,7 @@
               14. Your rights
             </h2>
             <p>
-              Because virtually all DRFT data lives on your device, you have direct control. Deleting the app removes all local data. You can also use <strong>Settings &rarr; RESET ALL DATA</strong> to wipe everything (saved moments, wake words, profiles, preferences, the CloudKit zone if sync is active, and any copy of your name an earlier version left in iCloud Key-Value Storage) in 1 action; from version 2.0.2, deleting the CloudKit zone also erases the synced copies on your other devices running DRFT 2.0.2 or later that receive the deletion (see <a href="#section-8">section 8</a>). The 1 item <em>not</em> deleted is your DRFT+ purchase, which Apple owns and which the app tells you is unaffected.
+              Because virtually all DRFT data lives on your device, you have direct control. Deleting the app removes all local data. You can also use <strong>Settings &rarr; RESET ALL DATA</strong> to wipe everything (saved moments, wake words, profiles, word catch counts, preferences, the CloudKit zone if sync is active, and any copy of your name an earlier version left in iCloud Key-Value Storage) in 1 action; from version 2.1.0, deleting the CloudKit zone also erases the synced copies on your other devices running DRFT 2.1.0 or later that receive the deletion (see <a href="#section-8">section 8</a>). The 1 item <em>not</em> deleted is your DRFT+ purchase, which Apple owns and which the app tells you is unaffected.
             </p>
             <p>
               <strong>GDPR (EEA, UK, Switzerland).</strong> If you are in the EEA, UK, or Switzerland, you have the following rights regarding any personal data DRFT processes:
@@ -294,13 +298,13 @@
               <li><strong>Lodge a complaint</strong> &mdash; with your national supervisory authority.</li>
             </ul>
             <p>
-              <strong>Lawful basis per data category:</strong> We hold no copy of your data, so in practice these rights are exercised on your own device. Name entered during onboarding &mdash; contract performance (seeding your first wake words on your device; versions before 2.0.2 also kept it in iCloud Key-Value Storage to keep them consistent across your devices). Saved moments, wake words, and profiles &mdash; contract performance, processed on your device and in your own iCloud account. For App Store builds older than 2.0 only: transcript text forwarded for a cloud summary and the opaque iCloud user record ID sent with it &mdash; legitimate interest (providing the feature you requested, and rate-limiting the service), avoidable by updating the app.
+              <strong>Lawful basis per data category:</strong> We hold no copy of your data, so in practice these rights are exercised on your own device. Name entered during onboarding &mdash; contract performance (seeding your first wake words on your device; versions before 2.1.0 also kept it in iCloud Key-Value Storage to keep them consistent across your devices). Saved moments, wake words, profiles, and word catch counts &mdash; contract performance, processed on your device and in your own iCloud account. For App Store builds older than 2.0 only: transcript text forwarded for a cloud summary and the opaque iCloud user record ID sent with it &mdash; legitimate interest (providing the feature you requested, and rate-limiting the service), avoidable by updating the app.
             </p>
             <p>
               We will respond to rights requests within 30 days. To submit a request, email <a href="mailto:nohbodie@icloud.com">nohbodie@icloud.com</a>.
             </p>
             <p>
-              <strong>CCPA / CPRA (California residents).</strong> We do not sell or share personal information. DRFT serves no ads and uses no advertising identifiers or cross-context behavioral advertising. California residents have the right to know what personal information is collected, to delete it, to correct it, to limit use of sensitive PI, and to non-discrimination for exercising these rights. Categories of PI involved: name (entered during onboarding and used on your device; kept in iCloud Key-Value Storage only by versions before 2.0.2); and, for App Store builds older than 2.0 only, identifiers (the opaque iCloud user record ID sent with cloud summary requests for rate limiting).
+              <strong>CCPA / CPRA (California residents).</strong> We do not sell or share personal information. DRFT serves no ads and uses no advertising identifiers or cross-context behavioral advertising. California residents have the right to know what personal information is collected, to delete it, to correct it, to limit use of sensitive PI, and to non-discrimination for exercising these rights. Categories of PI involved: name (entered during onboarding and used on your device; kept in iCloud Key-Value Storage only by versions before 2.1.0); saved content and per-installation word catch counts stored on your device and, with DRFT+, in your private iCloud database; purchase entitlement state; and, for App Store builds older than 2.0 only, identifiers (the opaque iCloud user record ID sent with cloud summary requests for rate limiting).
             </p>
           </section>
           <section>
@@ -308,7 +312,7 @@
               15. Data retention
             </h2>
             <p>
-              Audio is ephemeral &mdash; processed in real time and discarded immediately. No audio is ever written to disk or transmitted. Saved moments (detection metadata, transcript window, and summary text) persist on your device until you delete them or they roll off the tier cap. Use <strong>Settings &rarr; RESET ALL DATA</strong> to erase everything at once.
+              Audio is ephemeral &mdash; processed in real time and discarded immediately. No audio is ever written to disk or transmitted. Saved moments (detection metadata, transcript window, and summary text) persist on your device until you delete them or they roll off the tier cap. Word catch counts remain when you delete moments or words, so levels keep their progress. Use <strong>Settings &rarr; RESET ALL DATA</strong> to clear the counts along with your other app data and, when sync is active, the private iCloud copy.
             </p>
             <p>
               We retain no personal data, because we operate no server that receives any. Feedback you submit through the Tally form is retained by Tally and reviewed by us only as long as needed to respond and improve DRFT. The legacy summary Worker, used only by App Store builds older than 2.0 and shut down on 2026-09-06, did not log or store transcript text or summary content, and the identifier sent with such a request was hashed into a temporary rate-limit key that was not persisted.
